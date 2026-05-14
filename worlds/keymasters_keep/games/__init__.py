@@ -13,6 +13,7 @@ from importlib import import_module
 from Utils import user_path
 
 from ..game import AutoGameRegister, Game
+from ._randophilia_ import RandophiliaServerArchipelagoOptions
 
 # Bundled games
 for game_module_info in pkgutil.iter_modules(__path__):
@@ -55,6 +56,7 @@ option_classes: List[Type] = list()
 game_cls: Type[Game]
 for _, game_cls in sorted(AutoGameRegister.games.items(), reverse=True):
     option_classes.append(game_cls.options_cls)
+option_classes.append(RandophiliaServerArchipelagoOptions)
 
 
 @dataclasses.dataclass
