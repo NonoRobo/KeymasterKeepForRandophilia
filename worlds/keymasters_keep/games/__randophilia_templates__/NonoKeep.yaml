@@ -1,0 +1,104 @@
+﻿name: NonoKeep
+description: ONLY NONO IN HERE
+game: Keymaster's Keep
+requires:
+  version: 0.6.7 # Version of Archipelago required for this yaml to work as expected.
+
+Keymaster's Keep:
+  progression_balancing: normal
+  accessibility: full
+
+  goal:
+    keymasters_challenge: 50
+    magic_key_heist: 50
+  artifacts_of_resolve_total: 25
+  artifacts_of_resolve_required: 25
+  magic_keys_required: 50
+  
+  keep_areas: 100
+  magic_keys_total: 50
+  unlocked_areas: 5
+  lock_magic_keys_minimum: 1
+  lock_magic_keys_maximum: 5
+  area_trials_minimum: 25
+  area_trials_maximum: 25
+  shops_: 'true'
+  shops_percentage_chance: 5
+  shop_items_minimum: 1
+  shop_items_maximum: 5
+  shop_items_progression_percentage_chance: 100
+  shop_hints: 'true'
+  
+  include_adult_only_or_unrated_games: 'true'
+  include_modern_console_games: 'true'
+  include_difficult_objectives: 'true'
+  excluded_games_difficult_objectives: []
+  include_time_consuming_objectives: 'true'
+  excluded_games_time_consuming_objectives: []
+  hints_reveal_objectives: 'true'
+
+  game_medley_mode: 'false'
+  game_medley_percentage_chance: 10
+  game_medley_game_selection: []
+  game_selection:
+    [
+      'Cook, Serve, Delicious! 2!! (PC)',
+      'Outer Wilds (PC)',
+      'Slay the Spire 2 (PC)',
+    ]
+    
+  randophilia_nono_is_here: 'true'
+  nono_csd2_max_yum: 79
+  nono_csd2_include_csd: 'true'
+  nono_csd2_include_c4h: 'true'
+  
+  randophilia_niko_is_here: 'false'
+
+  custom_objective_list: []
+  game_backlog_game_selection: []
+  game_backlog_actions: []
+
+  ###########################
+  # Item & Location Options #
+  ###########################
+  local_items:
+    # Forces these items to be in their native world.
+    []
+
+  non_local_items:
+    # Forces these items to be outside their native world.
+    []
+
+  start_inventory:
+    # Start with the specified amount of these items. Example: "Bomb: 1"
+    {}
+
+  start_inventory_from_pool:
+    # Start with the specified amount of these items and don't place them in the world. Example: "Bomb: 1"
+    # 
+    # The game decides what the replacement items will be.
+    {}
+
+  start_hints:
+    # Start with these item's locations prefilled into the ``!hint`` command.
+    []
+
+  start_location_hints:
+    # Start with these locations and their item prefilled into the ``!hint`` command.
+    []
+
+  exclude_locations:
+    # Prevent these locations from having an important item.
+    []
+
+  priority_locations:
+    # Prevent these locations from having an unimportant item.
+    []
+
+  item_links:
+    # Share part of your item pool with other players.
+    []
+
+  plando_items:
+    # Generic items plando.
+    []
