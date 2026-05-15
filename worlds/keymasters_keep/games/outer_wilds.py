@@ -52,26 +52,31 @@ class OuterWildsGame(Game):
     
     def all_planets_objectives(self) -> List[GameObjectiveTemplate]:
         return (
-            self.planet_objectives("Timber Hearth", self.timber_hearth_places)
-            + self.planet_objectives("Attlerock", self.attlerock_places)
-            + self.planet_objectives("Brittle Hollow", self.brittle_hollow_places)
-            + [
-                GameObjectiveTemplate(
-                    label=f"Take a picture of/from PLACE.",
-                    data={
-                        "PLACE": (self.other_places, 1),
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=1
-                ),
-            ]
+            self.planet_picture_objective("(Timber Hearth)", self.timber_hearth_places)
+            + self.planet_walk_objective("(Timber Hearth)", self.timber_hearth_places)
+            + self.planet_picture_objective("(Attlerock)", self.attlerock_places)
+            + self.planet_walk_objective("(Attlerock)", self.attlerock_places)
+            + self.planet_picture_objective("(Brittle Hollow)", self.brittle_hollow_places)
+            + self.planet_walk_objective("(Brittle Hollow)", self.brittle_hollow_places)
+            + self.planet_picture_objective("(Dark Bramble)", self.dark_bramble_places)
+            + self.planet_walk_objective("(Dark Bramble)", self.dark_bramble_places)
+            + self.planet_picture_objective("(Giant's Deep)", self.giants_deep_places)
+            + self.planet_walk_objective("(Giant's Deep)", self.giants_deep_places)
+            + self.planet_picture_objective("(Ember Twin)", self.ember_twin_places)
+            + self.planet_walk_objective("(Ember Twin)", self.ember_twin_places)
+            + self.planet_picture_objective("(Ash Twin)", self.ash_twin_places)
+            + self.planet_walk_objective("(Ash Twin)", self.ash_twin_places)
+            + self.planet_picture_objective("(Interloper)", self.interloper_places)
+            + self.planet_walk_objective("(Interloper)", self.interloper_places)
+            + self.planet_picture_objective("(Quantum Moon)", self.quantum_moon_places)
+            + self.planet_walk_objective("(Quantum Moon)", self.quantum_moon_places)
+            + self.planet_picture_objective("", self.other_places)
         )
-    
-    def planet_objectives(planet_name, places) -> List[GameObjectiveTemplate]:
+
+    def planet_picture_objective(planet_name, places) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label=f"Take a picture of/from PLACE ({planet_name}).",
+                label=f"Take a picture of/from PLACE {planet_name}",
                 data={
                     "PLACE": (places, 1),
                 },
@@ -79,8 +84,12 @@ class OuterWildsGame(Game):
                 is_difficult=False,
                 weight=1
             ),
+        ]
+    
+    def planet_walk_objective(planet_name, places) -> List[GameObjectiveTemplate]:
+        return [
             GameObjectiveTemplate(
-                label=f"Walk between these two places: PLACES ({planet_name}).",
+                label=f"Walk between these two places: PLACES {planet_name}",
                 data={
                     "PLACES": (places, 2),
                 },
@@ -189,8 +198,98 @@ class OuterWildsGame(Game):
         ]
     
     @staticmethod
+    def dark_bramble_places() -> List[str]:
+        return [
+            "Dead Jellyfish",
+            "Escape Pod 3",
+            "Nomai Grave",
+            "Feldspar's Campfire",
+            "Feldspar's Ship",
+            "Eggs Nest",
+            "The Vessel",
+        ]
+
+    @staticmethod
+    def giants_deep_places() -> List[str]:
+        return [
+            "Gabbro's Ship",
+            "Bramble Island",
+            "Feldspar's Campfire",
+            "Gabbro's Hamac",
+            "Gabbro's Campfire",
+            "Cannon Construction Site",
+            "Statue Island Village Ruins",
+            "Statue Workshop",
+            "Ocean Depths",
+            "Planet's Core",
+            "Orbital Probe Cannon's Tracking Module",
+        ]
+    
+    @staticmethod
+    def ember_twin_places() -> List[str]:
+        return [
+            "Escape Pod 2",
+            "Sunless City's Anglerfish Overlook",
+            "Sunless City's Anglerfish Fossil",
+            "Sunless City's Bottom",
+            "Sunless City's Eye Shrine",
+            "High Energy Lab",
+            "Gravity Cannon",
+            "Chert's Campfire",
+            "Quantum Cave",
+            "Lakebed Cave",
+            "Quantum Moon Locator",
+        ]
+    
+    @staticmethod
+    def ash_twin_places() -> List[str]:
+        return [
+            "Inside the Sun Station Tower",
+            "Outside the Sun Station Tower",
+            "Brittle Hollow Tower",
+            "Giant's Deep Tower",
+            "Timber Hearth Tower",
+            "Hourglass Twins Tower",
+            "Ash Twin Project",
+        ]
+    
+    @staticmethod
+    def interloper_places() -> List[str]:
+        return [
+            "Frozen Side",
+            "Sunny Side",
+            "Frozen Nomai Shuttle",
+            "Ruptured Core",
+        ]
+    
+    @staticmethod
+    def quantum_moon_places() -> List[str]:
+        return [
+            "Hourglass Twins Ambiance",
+            "Timber Hearth Ambiance",
+            "Brittle Hollow Ambiance",
+            "Giant's Deep Ambiance",
+            "Dark Bramble Ambiance",
+            "Eye of the Universe Ambiance",
+            "North Pole",
+            "Dead Solanum",
+            "Living Solanum",
+            "Quantum Shrine",
+            "Solanum's Ship",
+        ]
+    
+    @staticmethod
     def other_places() -> List[str]:
         return [
             "Inside the Lantern",
             "Black Hole Forge",
+            "Sun Station",
+            "The Eye of the Universe",
+            "Orbital Probe Cannon's Control Module",
+            "Orbital Probe Cannon's Launch Module",
+            "Tower of Quantum Trials",
+            "White Hole",
+            "White Hole Station",
+            "Deep Space Satellite",
+            "Nomai Probe",
         ]
