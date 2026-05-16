@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import functools
+import logging
 from typing import List
 
 from dataclasses import dataclass
@@ -20,7 +21,41 @@ class VampireSurvivorsGame(Game):
     platforms_other = None
     is_adult_only_or_unrated = False
     options_cls = VampireSurvivorsArchipelagoOptions
-    
+
+    def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
+        constraints = []
+        n = (len(self.passives(True, True, True, True, True, True, True)) + len(self.vs_arcana())) * 10
+        logging.info(f"NIKOTEST : taille des contraintes : {n}")
+        constraints.extend([
+            GameObjectiveTemplate(
+                label="Don't take this passives : PASSIVE",
+                data={
+                    "PASSIVE": (lambda: self.passives(
+                            self.niko_LegacyOfTheMoonspell,
+                            self.niko_TidesOfTheFoscari,
+                            self.niko_EmergencyMeeting,
+                            self.niko_OperationGuns,
+                            self.niko_OdeToCastlevania,
+                            self.niko_EmeraldDiorama,
+                            self.niko_AnteChamber
+                            ), 2),
+                },
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Start with this Arcana : ARCANA",
+                data={
+                    "ARCANA": (self.vs_arcana, 1),
+                },
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="None",
+                data={},
+                weight=(len(self.passives(True, True, True, True, True, True, True)) + len(self.vs_arcana())) * 10,
+            ),
+        ])
+        return constraints    
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         game_objective_templates: List[GameObjectiveTemplate] = list()
@@ -54,7 +89,7 @@ class VampireSurvivorsGame(Game):
                     weight=1,
                 ),
                 GameObjectiveTemplate(
-                    label="Complete a run on this BONUS STAGE",
+                    label="Complete a run on BONUS STAGE",
                     data={
                         "BONUS STAGE": (lambda: self.vs_bonus_stages, 1),
                     },
@@ -63,7 +98,7 @@ class VampireSurvivorsGame(Game):
                     weight=1,
                 ),
                 GameObjectiveTemplate(
-                    label="Complete a run using CHARACTER",
+                    label="Complete a run playing CHARACTER",
                     data={
                         "CHARACTER": (lambda: self.characters(
                             self.niko_LegacyOfTheMoonspell,
@@ -80,7 +115,7 @@ class VampireSurvivorsGame(Game):
                     weight=1,
                 ),
                 GameObjectiveTemplate(
-                    label="Complete a run using CHARACTER on STAGE",
+                    label="Complete a run playing CHARACTER on STAGE",
                     data={
                         "CHARACTER": (lambda: self.characters(
                             self.niko_LegacyOfTheMoonspell,
@@ -92,6 +127,66 @@ class VampireSurvivorsGame(Game):
                             self.niko_AnteChamber
                             ), 1),
                         "STAGE": (lambda: self.stages(
+                            self.niko_LegacyOfTheMoonspell,
+                            self.niko_TidesOfTheFoscari,
+                            self.niko_EmergencyMeeting,
+                            self.niko_OperationGuns,
+                            self.niko_OdeToCastlevania,
+                            self.niko_EmeraldDiorama,
+                            self.niko_AnteChamber
+                            ), 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=1,
+                ),
+                GameObjectiveTemplate(
+                    label="Complete a run with this weapon: WEAPON_EVOLUTION",
+                    data={
+                        "WEAPON_EVOLUTION": (lambda: self.weapons_evolution(
+                            self.niko_LegacyOfTheMoonspell,
+                            self.niko_TidesOfTheFoscari,
+                            self.niko_EmergencyMeeting,
+                            self.niko_OperationGuns,
+                            self.niko_OdeToCastlevania,
+                            self.niko_EmeraldDiorama,
+                            self.niko_AnteChamber
+                            ), 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=1,
+                ),
+                GameObjectiveTemplate(
+                    label="Complete a run with this weapon: WEAPON_UNION",
+                    data={
+                        "WEAPON_UNION": (lambda: self.weapons_union(
+                            self.niko_LegacyOfTheMoonspell,
+                            self.niko_TidesOfTheFoscari,
+                            self.niko_EmergencyMeeting,
+                            self.niko_OperationGuns,
+                            self.niko_OdeToCastlevania,
+                            self.niko_EmeraldDiorama,
+                            self.niko_AnteChamber
+                            ), 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=1,
+                ),
+                GameObjectiveTemplate(
+                    label="Complete a run playing CHARACTER with this weapon: WEAPON_EVOLUTION",
+                    data={
+                         "CHARACTER": (lambda: self.characters(
+                            self.niko_LegacyOfTheMoonspell,
+                            self.niko_TidesOfTheFoscari,
+                            self.niko_EmergencyMeeting,
+                            self.niko_OperationGuns,
+                            self.niko_OdeToCastlevania,
+                            self.niko_EmeraldDiorama,
+                            self.niko_AnteChamber
+                            ), 1),
+                        "WEAPON_EVOLUTION": (lambda: self.weapons_evolution(
                             self.niko_LegacyOfTheMoonspell,
                             self.niko_TidesOfTheFoscari,
                             self.niko_EmergencyMeeting,
@@ -135,7 +230,7 @@ class VampireSurvivorsGame(Game):
         return "Ante Chamber" in self.archipelago_options.niko_vs_include_dlc
 
     def stages(self, dlc_moonspell: bool, dlc_foscari: bool, dlc_emergency_meeting: bool, dlc_operation_guns: bool, dlc_castlevania: bool, dlc_emerald_diorama: bool, dlc_ante_chamber: bool) -> List[str]:
-        stages = self.vs_vanilla_stages
+        stages = list(self.vs_vanilla_stages)
         if dlc_moonspell:
             stages.extend(self.vs_moonspell_stages)
         if dlc_foscari:
@@ -151,6 +246,58 @@ class VampireSurvivorsGame(Game):
         if dlc_ante_chamber:
             stages.extend(self.vs_ante_chamber_stages)
         return stages
+    def characters(self, dlc_moonspell: bool, dlc_foscari: bool, dlc_emergency_meeting: bool, dlc_operation_guns: bool, dlc_castlevania: bool, dlc_emerald_diorama: bool, dlc_ante_chamber: bool) -> List[str]:
+        charact = list(self.vs_base_characters)
+        if dlc_moonspell:
+            charact.extend(self.vs_moonspell_characters)
+        if dlc_foscari:
+            charact.extend(self.vs_foscari_characters)
+        if dlc_emergency_meeting:
+            charact.extend(self.vs_emergency_meeting_characters)
+        if dlc_operation_guns:
+            charact.extend(self.vs_operation_guns_characters)
+        if dlc_castlevania:
+            charact.extend(self.vs_castlevania_characters)
+        if dlc_emerald_diorama:
+            charact.extend(self.vs_emerald_characters)
+        if dlc_ante_chamber:
+            charact.extend(self.vs_ante_characters)
+        return charact
+    def weapons_evolution(self, dlc_moonspell: bool, dlc_foscari: bool, dlc_emergency_meeting: bool, dlc_operation_guns: bool, dlc_castlevania: bool, dlc_emerald_diorama: bool, dlc_ante_chamber: bool) -> List[str]:
+        weapon = list(self.vs_vanilla_weapons_evolution)
+        if dlc_moonspell:
+            weapon.extend(self.vs_moonspell_weapons_evolution)
+        if dlc_foscari:
+            weapon.extend(self.vs_foscari_weapons_evolution)
+        if dlc_emergency_meeting:
+            weapon.extend(self.vs_meeting_weapons_evolution)
+        if dlc_operation_guns:
+            weapon.extend(self.vs_guns_weapons_evolution)
+        if dlc_castlevania:
+            weapon.extend(self.vs_castlevania_weapons_evolution)
+        if dlc_emerald_diorama:
+            weapon.extend(self.vs_diorama_weapons_evolution)
+        if dlc_ante_chamber:
+            weapon.extend(self.vs_chamber_weapons_evolution)
+        return weapon
+    def weapons_union(self, dlc_moonspell: bool, dlc_foscari: bool, dlc_emergency_meeting: bool, dlc_operation_guns: bool, dlc_castlevania: bool, dlc_emerald_diorama: bool, dlc_ante_chamber: bool) -> List[str]:
+        union = list(self.vs_vanilla_weapons_union)
+        if dlc_foscari:
+            union.extend(self.vs_foscari_weapons_union)
+        if dlc_castlevania:
+            union.extend(self.vs_castlevania_weapons_union)
+        return union
+    def passives(self, dlc_moonspell: bool, dlc_foscari: bool, dlc_emergency_meeting: bool, dlc_operation_guns: bool, dlc_castlevania: bool, dlc_emerald_diorama: bool, dlc_ante_chamber: bool) -> List[str]:
+        passive = list(self.vs_vanilla_passive)
+        if dlc_foscari:
+            passive.extend(self.vs_foscari_passive)
+        if dlc_emergency_meeting:
+            passive.extend(self.vs_meeting_passive)
+        if dlc_operation_guns:
+            passive.extend(self.vs_guns_passive)
+        if dlc_ante_chamber:
+            passive.extend(self.vs_ante_passive)
+        return passive
 
 ## STAGES ##
     @functools.cached_property
@@ -497,6 +644,301 @@ class VampireSurvivorsGame(Game):
             "Canio",
             "Chicot",
             "Perkeo",
+        ]
+## WEAPONS EVOLUTION
+    @functools.cached_property
+    def vs_vanilla_weapons_evolution(self) -> List[str]:
+        """Vanilla weapons"""
+        return[
+            "Bloody Tear",
+            "Holy Wand",
+            "Thousand Edge",
+            "Death Spiral",
+            "Heaven Sword",
+            "Unholy Vespers",
+            "Hellfire",
+            "Soul Eater",
+            "La Borra",
+            "NO FUTURE",
+            "Thunder Loop",
+            "Gorgeous Moon",
+            "Vicious Hunger",
+            "Mannajja",
+            "Valkyrie Turner",
+            "Infinite Corridor",
+            "Crimsons Shroud",
+            "Bi-Bracelet",
+            "Tri-Bracelet",
+            "Ashes Muspell",
+            ## EXTRA
+            "Anima of Mortaccio",
+            "Yatta Daikarin",
+            "Carozza!",
+            "Pofusione D'Amore",
+            "Mazo Familiar",
+            "Gunastrophe",
+            "Celestial Voulge",
+            "Seraphic Cry",
+            "Embrace of Gaea",
+            "Kyra-Stones",
+            "Photonstorm",
+            "Wicked Ruler",
+        ]
+    @functools.cached_property
+    def vs_moonspell_weapons_evolution(self) -> List[str]:
+        """Evolution in Legacy of Moonspell"""
+        return[
+            "Festive Winds",
+            "Godai Shuffle",
+            "Echo Night",
+            "J'Odore",
+            "Muramasa",
+            "Boo Roo Boolle",
+        ]
+    @functools.cached_property
+    def vs_foscari_weapons_evolution(self) -> List[str]:
+        """Evolution in Tides of the Foscari"""
+        return[
+            "Legionnaire",
+            "Millionaire",
+            "Luminaire",
+            "Ophion",
+        ]
+    @functools.cached_property
+    def vs_meeting_weapons_evolution(self) -> List[str]:
+        """Evolution in Emergency Meetinf"""
+        return[
+            "Emergency Meeting",
+            "Crossed Wires",
+            "Paranormal Scan",
+            "Unjust Ejection", 
+            "Clear Asteroids",
+            "Impostongue",
+            "Rocket Science",
+        ]
+    @functools.cached_property
+    def vs_guns_weapons_evolution(self) -> List[str]:
+        """Evolution in Operation Guns"""
+        return[
+            "Prototype A",
+            "Prototype B",
+            "Prototype C",
+            "Pronto Beam",
+            "Fire-L3GS",
+            "Wave Beam",
+            "MultiStage Missiles",
+            "Atmo-Torpedo",
+            "BFC2000-AD",
+            "Time Warp",
+            "Big Fuzzy Fist",
+        ]
+    @functools.cached_property
+    def vs_castlevania_weapons_evolution(self) -> List[str]:
+        """Evolution in Ode To Castlevania"""
+        return[
+            "Vampire Killer",
+            "Spirit Tornatdo Tip",
+            "Cross Crasher Tip",
+            "Hydrostormer Tip",
+            "Crissaegrim Tip",
+            "Mormegil Tip",
+            "Daybreaker Tip",
+            "Aurablaster Tip",
+            "Yagyu Shuriken",
+            "Bwaka Knife",
+            "Long Inus",
+            "Stellar Blade",
+            "Wrecking Ball",
+            "Jewel Gun",
+            "The TPG",
+            "Meal Ticket",
+            "Salamander",
+            "Cocytus",
+            "Pneuma Tempestas",
+            "Gemma Torpor",
+            "Tenebris Tonitrus",
+            "Keremet Morbus",
+            "Nightmare",
+            "Sanctuary",
+            "Stamazza",
+            "Moon Rod",
+            "Thunderbolt Spear",
+            "Gungnir-Souris",
+            "Dark Iron Shield",
+            "Sacred Beasts Tower Shield",
+            "Rune Sword",
+            "Alucard Swords",
+            "Vol Confodere",
+            "Melio Confodere",
+            "Nitesco",
+            "Acerbatus",
+            "Rapidus Fio",
+            "Vol Luminato",
+            "Vol Umbra",
+            "Claimh Solais",
+        ]
+    @functools.cached_property
+    def vs_diorama_weapons_evolution(self) -> List[str]:
+        """Evolution in Emerald Diorama"""
+        return[
+            "Dress Sword",
+            "Espada Ropera",
+            "Lordstar",
+            "Dayblade",
+            "Pursuant Blades",
+            "Zweihander",
+            "Galatyn",
+            "Pressure Point",
+            "Gilded Hand",
+            "Triangle Kick",
+            "Hecaton Machine Gun",
+            "Divergence",
+            "Hydra Cannon",
+            "Hyperion Bazooka",
+            "Pendragon",
+            "Jetstream",
+            "Gekkabijin",
+            "Falconwind",
+            "Blood Chalice",
+            "Feather Spear",
+            "Lohengrin",
+            "Rings of Calamity",
+            "Emerald Wave",
+        ]
+    @functools.cached_property
+    def vs_chamber_weapons_evolution(self) -> List[str]:
+        """Evolution in Ante Chamber"""
+        return[
+            "NaneInferno",
+            "Cavendish",
+            "Royal Flush",
+            "Negative Space",
+        ]
+## Union
+    @functools.cached_property
+    def vs_vanilla_weapons_union(self) -> List[str]:
+        """Union Weapons in base game"""
+        return[
+            "Vandalier",
+            "Phieraggi",
+            "Fuwalafuwaloo",
+        ]
+    @functools.cached_property
+    def vs_foscari_weapons_union(self) -> List[str]:
+        """Union Weapons in Tides of the Foscari"""
+        return[
+            "SpellStrom",
+        ]
+    @functools.cached_property
+    def vs_castlevania_weapons_union(self) -> List[str]:
+        """Union Weapons in Ode to Castlevania"""
+        return[
+            "Trinum Custodem",
+            "Power of Sire",
+            "Million Cut",
+            "Ninth Circle",
+            "Dies Irae",
+            "Kardia Phlegeton",
+            "Lapiste Tepisto",
+            "Darkness Illusion",
+            "Carnage Heart",
+            "Hydro Pump Climax",
+            "Arch Angle",
+            "Spirit of Light",
+            "Power of Lire",
+            "Legacy of Death: Soul River",
+            "Vjaya Sisters",
+            "Venus Crescent",
+            "Dark Frogamorphosis",
+            "Clock Tower",
+        ]
+## PASIVE
+    @functools.cached_property
+    def vs_vanilla_passive(self) -> List[str]:
+        """Passive in XBase game"""
+        return[
+            "Spinach",
+            "Armor",
+            "Hollow Heart",
+            "Pummarola",
+            "Empty Tome",
+            "Candelabrador",
+            "Bracer",
+            "Spellbinder",
+            "Duplicator",
+            "Wings",
+            "Attractorb",
+            "Clover",
+            "Crown",
+            "Stone Mask",
+            "Skull O'Maniac",
+            "Tirajisù",
+            "Torrona's Box",
+            "Silber Ring",
+            "Gold Ring",
+            "Metaglio Left",
+            "Metaglio Right",
+            ## EXTRA
+            "Parm Aegis",
+            "Karoma's Mana",
+        ]
+    @functools.cached_property
+    def vs_foscari_passive(self) -> List[str]:
+        """Passive in Tides of the Foscari"""
+        return[
+            "Academy Badge",
+        ]
+    @functools.cached_property
+    def vs_meeting_passive(self) -> List[str]:
+        """Passive in Emergency Meeting"""
+        return[
+            "Mini Crewmate",
+            "Mini Engineer",
+            "Mini Ghost",
+            "Mini Shapeshifter",
+            "Mini Guardian",
+            "Mini Impostor",
+            "Mini Scientist",
+            "Mini Horse",
+        ]
+    @functools.cached_property
+    def vs_guns_passive(self) -> List[str]:
+        """Passive in Operation Guns"""
+        return[
+            "Weapon Powers-Up",
+        ]
+    @functools.cached_property
+    def vs_ante_passive(self) -> List[str]:
+        """Passive in Ante Chamber"""
+        return[
+            "Outer Saboter",
+        ]
+## ARCANA
+    @staticmethod
+    def vs_arcana() -> List[str]:
+        return[
+            "0 - Game Killer",
+            "I - Gemini",
+            "II - Twilight Requiem",
+            "III - Tragic Princess",
+            "IV - Awake",
+            "V - Chaos in the Dark Night",
+            "VI - Sarabande of Healing",
+            "VII - Iron Blue Will",
+            "VIII- Mad Groove",
+            "IX - Divine Bloodline",
+            "X - Begenning",
+            "XI - Walts of Pearls",
+            "XII - Out of Bounds",
+            "XIII - Wicked Season",
+            "XIV - Jail of Crystal",
+            "XV - Disco of Gold",
+            "XVI - Slash",
+            "XVII - Lost & Found Painting",
+            "XVIII - Boogaloo of Illusions",
+            "XIX - Heart of Fire",
+            "XX - Silent Old Sanctuary",
+            "XXI - Blood Astronomia",
         ]
 class VampireSurvivorsNikoIncludeDLC(OptionSet):
     """
