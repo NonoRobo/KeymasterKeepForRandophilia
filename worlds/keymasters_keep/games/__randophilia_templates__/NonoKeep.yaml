@@ -2,7 +2,7 @@
 description: ONLY NONO IN HERE
 game: Keymaster's Keep
 requires:
-  version: 0.6.7 # Version of Archipelago required for this yaml to work as expected.
+  version: 0.6.2 # Version of Archipelago required for this yaml to work as expected.
 
 Keymaster's Keep:
   progression_balancing: normal

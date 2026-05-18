@@ -2,7 +2,7 @@ name: NikoKeep
 description: ONLY NIKO IN HERE
 game: Keymaster's Keep
 requires:
-  version: 0.6.7 # Version of Archipelago required for this yaml to work as expected.
+  version: 0.6.2 # Version of Archipelago required for this yaml to work as expected.
 
 Keymaster's Keep:
   progression_balancing: normal
@@ -42,9 +42,9 @@ Keymaster's Keep:
   game_medley_game_selection: []
   game_selection:
     [
+      'Celeste (PC)',
       'Dark Souls Remastered (PC)',
       'Slay the Spire 2 (PC)',
-      'Celeste (PC)',
     ]
     
   randophilia_nono_is_here: 'false'
