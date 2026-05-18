@@ -70,6 +70,10 @@ class OuterWildsGame(Game):
             + self.planet_walk_objective("(Interloper)", self.interloper_places)
             + self.planet_picture_objective("(Quantum Moon)", self.quantum_moon_places)
             + self.planet_walk_objective("(Quantum Moon)", self.quantum_moon_places)
+            + self.planet_picture_objective("(Stranger)", self.stranger_places)
+            + self.planet_walk_objective("(Stranger)", self.stranger_places)
+            + self.planet_picture_objective("(Stranger Simulation)", self.stranger_simulation_places)
+            + self.planet_walk_objective("(Stranger Simulation)", self.stranger_simulation_places)
             + self.planet_picture_objective("", self.other_places)
         )
 
@@ -276,6 +280,51 @@ class OuterWildsGame(Game):
             "Living Solanum",
             "Quantum Shrine",
             "Solanum's Ship",
+        ]
+    
+    @staticmethod
+    def stranger_places() -> List[str]:
+        return [
+            "Hull Breach",
+            "Dam",
+            "Island Tower",
+            "Island Tower's Top",
+            "Island Tower's Cave",
+            "Abandoned Temple",
+            "Abandoned Temple's Secret Room",
+            "Cinder Island",
+            "Cinder Island's Simulation Room",
+            "Cinder Island's Burned Temple",
+            "Cinder Island's Theater",
+            "Cinder Island's Secret Room",
+            "Hidden Gorge",
+            "Hidden Gorge's Simulation Room",
+            "Hidden Gorge's Theater",
+            "Hidden Gorge's Secret Room",
+            "Laboratory",
+            "Reservoir",
+            "Reservoir's Theater",
+            "Submerged Structure",
+            "Solar System Observation Table",
+            "River Lowlands",
+            "River Lowlands' Simulation Room",
+            "River Lowlands' Theater",
+            "River Lowlands' Secret Room",
+            "Artifact Workshop",
+        ]
+    
+    @staticmethod
+    def stranger_simulation_places() -> List[str]:
+        return [
+            "Subterranean Lake",
+            "Inside the Sealed Vault",
+            "Respawn Position (Middle of the Lake)",
+            "Starlit Cove",
+            "Starlit Cove's Memorial Room",
+            "Endless Canyon",
+            "Endless Canyon's Memorial Room",
+            "Shrouded Woodlands",
+            "Shrouded Woodlands' Memorial Room",
         ]
     
     @staticmethod
