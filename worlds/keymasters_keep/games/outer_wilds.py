@@ -27,6 +27,8 @@ class OuterWildsGame(Game):
         game_objective_templates: List[GameObjectiveTemplate] = list()
 
         if self.randophilia_nono_is_here:
+            planetObjectives = self.all_planets_objectives()
+            game_objective_templates.extend(planetObjectives)
             game_objective_templates.extend([
                 GameObjectiveTemplate(
                     label="Talk to CHARACTER.",
@@ -35,7 +37,7 @@ class OuterWildsGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1
+                    weight=23 # Magic number yay
                 ),
                 GameObjectiveTemplate(
                     label="Reach the 'ENDING' ending.",
@@ -44,40 +46,40 @@ class OuterWildsGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1
+                    weight=23 # Magic number yay
                 ),
             ])
 
         return game_objective_templates
     
     def all_planets_objectives(self) -> List[GameObjectiveTemplate]:
-        return (
-            self.planet_picture_objective("(Timber Hearth)", self.timber_hearth_places)
-            + self.planet_walk_objective("(Timber Hearth)", self.timber_hearth_places)
-            + self.planet_picture_objective("(Attlerock)", self.attlerock_places)
-            + self.planet_walk_objective("(Attlerock)", self.attlerock_places)
-            + self.planet_picture_objective("(Brittle Hollow)", self.brittle_hollow_places)
-            + self.planet_walk_objective("(Brittle Hollow)", self.brittle_hollow_places)
-            + self.planet_picture_objective("(Dark Bramble)", self.dark_bramble_places)
-            + self.planet_walk_objective("(Dark Bramble)", self.dark_bramble_places)
-            + self.planet_picture_objective("(Giant's Deep)", self.giants_deep_places)
-            + self.planet_walk_objective("(Giant's Deep)", self.giants_deep_places)
-            + self.planet_picture_objective("(Ember Twin)", self.ember_twin_places)
-            + self.planet_walk_objective("(Ember Twin)", self.ember_twin_places)
-            + self.planet_picture_objective("(Ash Twin)", self.ash_twin_places)
-            + self.planet_walk_objective("(Ash Twin)", self.ash_twin_places)
-            + self.planet_picture_objective("(Interloper)", self.interloper_places)
-            + self.planet_walk_objective("(Interloper)", self.interloper_places)
-            + self.planet_picture_objective("(Quantum Moon)", self.quantum_moon_places)
-            + self.planet_walk_objective("(Quantum Moon)", self.quantum_moon_places)
-            + self.planet_picture_objective("(Stranger)", self.stranger_places)
-            + self.planet_walk_objective("(Stranger)", self.stranger_places)
-            + self.planet_picture_objective("(Stranger Simulation)", self.stranger_simulation_places)
-            + self.planet_walk_objective("(Stranger Simulation)", self.stranger_simulation_places)
-            + self.planet_picture_objective("", self.other_places)
-        )
+        planetObjectives: List[GameObjectiveTemplate] = []
+        planetObjectives.extend(self.planet_picture_objective("(Timber Hearth)", self.timber_hearth_places))
+        planetObjectives.extend(self.planet_walk_objective("(Timber Hearth)", self.timber_hearth_places))
+        planetObjectives.extend(self.planet_picture_objective("(Attlerock)", self.attlerock_places))
+        planetObjectives.extend(self.planet_walk_objective("(Attlerock)", self.attlerock_places))
+        planetObjectives.extend(self.planet_picture_objective("(Brittle Hollow)", self.brittle_hollow_places))
+        planetObjectives.extend(self.planet_walk_objective("(Brittle Hollow)", self.brittle_hollow_places))
+        planetObjectives.extend(self.planet_picture_objective("(Dark Bramble)", self.dark_bramble_places))
+        planetObjectives.extend(self.planet_walk_objective("(Dark Bramble)", self.dark_bramble_places))
+        planetObjectives.extend(self.planet_picture_objective("(Giant's Deep)", self.giants_deep_places))
+        planetObjectives.extend(self.planet_walk_objective("(Giant's Deep)", self.giants_deep_places))
+        planetObjectives.extend(self.planet_picture_objective("(Ember Twin)", self.ember_twin_places))
+        planetObjectives.extend(self.planet_walk_objective("(Ember Twin)", self.ember_twin_places))
+        planetObjectives.extend(self.planet_picture_objective("(Ash Twin)", self.ash_twin_places))
+        planetObjectives.extend(self.planet_walk_objective("(Ash Twin)", self.ash_twin_places))
+        planetObjectives.extend(self.planet_picture_objective("(Interloper)", self.interloper_places))
+        planetObjectives.extend(self.planet_walk_objective("(Interloper)", self.interloper_places))
+        planetObjectives.extend(self.planet_picture_objective("(Quantum Moon)", self.quantum_moon_places))
+        planetObjectives.extend(self.planet_walk_objective("(Quantum Moon)", self.quantum_moon_places))
+        planetObjectives.extend(self.planet_picture_objective("(Stranger)", self.stranger_places))
+        planetObjectives.extend(self.planet_walk_objective("(Stranger)", self.stranger_places))
+        planetObjectives.extend(self.planet_picture_objective("(Stranger Simulation)", self.stranger_simulation_places))
+        planetObjectives.extend(self.planet_walk_objective("(Stranger Simulation)", self.stranger_simulation_places))
+        planetObjectives.extend(self.planet_picture_objective("", self.other_places))
+        return planetObjectives
 
-    def planet_picture_objective(planet_name, places) -> List[GameObjectiveTemplate]:
+    def planet_picture_objective(self, planet_name, places) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
                 label=f"Take a picture of/from PLACE {planet_name}",
@@ -90,7 +92,7 @@ class OuterWildsGame(Game):
             ),
         ]
     
-    def planet_walk_objective(planet_name, places) -> List[GameObjectiveTemplate]:
+    def planet_walk_objective(self, planet_name, places) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
                 label=f"Walk between these two places: PLACES {planet_name}",
