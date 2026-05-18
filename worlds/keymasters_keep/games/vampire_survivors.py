@@ -24,8 +24,6 @@ class VampireSurvivorsGame(Game):
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         constraints = []
-        n = (len(self.passives(True, True, True, True, True, True, True)) + len(self.vs_arcana())) * 10
-        logging.info(f"NIKOTEST : taille des contraintes : {n}")
         constraints.extend([
             GameObjectiveTemplate(
                 label="Don't take this passives : PASSIVE",
@@ -52,7 +50,7 @@ class VampireSurvivorsGame(Game):
             GameObjectiveTemplate(
                 label="None",
                 data={},
-                weight=(len(self.passives(True, True, True, True, True, True, True)) + len(self.vs_arcana())) * 10,
+                weight=sum(o.weight for o in constraints) * 10,
             ),
         ])
         return constraints    
@@ -77,7 +75,7 @@ class VampireSurvivorsGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=2,
                 ),  
                 GameObjectiveTemplate(
                     label="Complete a challenge on CHALLENGE",
@@ -112,7 +110,7 @@ class VampireSurvivorsGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=3,
                 ),
                 GameObjectiveTemplate(
                     label="Complete a run playing CHARACTER on STAGE",
@@ -138,7 +136,7 @@ class VampireSurvivorsGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=4,
                 ),
                 GameObjectiveTemplate(
                     label="Complete a run with this weapon: WEAPON_EVOLUTION",
@@ -155,7 +153,7 @@ class VampireSurvivorsGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=2,
                 ),
                 GameObjectiveTemplate(
                     label="Complete a run with this weapon: WEAPON_UNION",
@@ -198,7 +196,7 @@ class VampireSurvivorsGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=4,
                 ),
             ])
         return game_objective_templates
