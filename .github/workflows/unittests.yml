@@ -27,7 +27,7 @@ jobs:
   unit:
     runs-on: ${{ matrix.os }}
     name: Test Python ${{ matrix.python.version }} ${{ matrix.os }}
-    continue-on-error: ${{ matrix.experimental || false}}
+    #continue-on-error: ${{ matrix.experimental || false}}
 
     strategy:
       fail-fast: false
@@ -37,9 +37,9 @@ jobs:
           - {version: '3.10'}
           # - {version: '3.11', experimental:true}
           # - {version: '3.12', experimental:true}
-        include:
-          - python: {version: '3.10'}  # old compat
-            os: windows-latest
+        # include:
+          # - python: {version: '3.10'}  # old compat
+          #   os: windows-latest
           # - python: {version: '3.12', experimental:true}  # current
           #   os: windows-latest
           # - python: {version: '3.12', experimental:true}  # current
