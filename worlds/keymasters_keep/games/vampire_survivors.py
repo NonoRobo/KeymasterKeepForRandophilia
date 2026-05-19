@@ -26,9 +26,9 @@ class VampireSurvivorsGame(Game):
         constraints = []
         constraints.extend([
             GameObjectiveTemplate(
-                label="Don't take this passives : PASSIVE",
+                label="Don't take these passives: PASSIVES",
                 data={
-                    "PASSIVE": (lambda: self.passives(
+                    "PASSIVES": (lambda: self.passives(
                             self.niko_LegacyOfTheMoonspell,
                             self.niko_TidesOfTheFoscari,
                             self.niko_EmergencyMeeting,
@@ -41,7 +41,7 @@ class VampireSurvivorsGame(Game):
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="Start with this Arcana : ARCANA",
+                label="Start with this Arcana: ARCANA",
                 data={
                     "ARCANA": (self.vs_arcana, 1),
                 },
@@ -87,9 +87,9 @@ class VampireSurvivorsGame(Game):
                     weight=1,
                 ),
                 GameObjectiveTemplate(
-                    label="Complete a run on BONUS STAGE",
+                    label="Complete a run on BONUS_STAGE",
                     data={
-                        "BONUS STAGE": (lambda: self.vs_bonus_stages, 1),
+                        "BONUS_STAGE": (lambda: self.vs_bonus_stages, 1),
                     },
                     is_time_consuming=False,
                     is_difficult=False,
