@@ -48,6 +48,7 @@ Keymaster's Keep:
       'Outer Wilds (PC)',
       'Slay the Spire 2 (PC)',
       'Unrailed! (PC)',
+      'Vampire Survivors (PC)'
     ]
     
   randophilia_nono_is_here: 'true'
@@ -61,6 +62,17 @@ Keymaster's Keep:
   niko_celeste_include_farewell: 'false'
   niko_celeste_include_b_side: 'false'
   niko_celeste_include_c_side: 'true'
+  niko_vs_include_dlc:
+    # The DLC Niko wants to include in the pool.
+    # The DLCs are:
+    # - Legacy of the Moonspell
+    # - Tides of the Foscari
+    # - Emergency Meeting
+    # - Operation Guns
+    # - Ode to Castlevania
+    # - Emerald Diorama
+    # - Ante Chamber
+    ['Ante Chamber', 'Tides of the Foscari', 'Operation Guns', 'Emerald Diorama', 'Emergency Meeting', 'Legacy of the Moonspell', 'Ode to Castlevania']
 
   custom_objective_list: []
   game_backlog_game_selection: []
