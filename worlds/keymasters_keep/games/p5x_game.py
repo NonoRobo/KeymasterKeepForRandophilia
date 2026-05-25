@@ -259,7 +259,7 @@ class P5XGame(Game):
         )
 
     def roles_for_role_exclusion(self) -> List[str]:
-        roles = list(self.support_roles)
+        roles = List(self.support_roles)
         if self.include_dps_roles_in_role_exclusion:
             roles.extend(self.dps_roles)
         if self.include_navigator_role_in_role_exclusion:
@@ -302,7 +302,7 @@ class P5XGame(Game):
         return [str(i) for i in range(self.min_team_size_cap, 6)]
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
-        return list()
+        return List()
 
     def objective_definitions(self) -> List[ObjectiveDefinition]:
         standard_constraints = {
