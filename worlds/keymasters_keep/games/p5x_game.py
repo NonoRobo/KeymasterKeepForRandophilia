@@ -327,7 +327,7 @@ class P5XGame(Game):
                         difficulty=DIFFICULTY_EASY,
                         label="Beat Technician EASY_TECHNICIAN_LEVEL",
                         data={
-                            "EASY_TECHNICIAN_LEVEL": (self.easy_technician_levels(), 1),
+                            "EASY_TECHNICIAN_LEVEL": (self.easy_technician_levels, 1),
                         },
                         is_time_consuming=False,
                         is_difficult=False,
@@ -338,7 +338,7 @@ class P5XGame(Game):
                         label="Beat Technician MEDIUM_TECHNICIAN_LEVEL",
                         data={
                             "MEDIUM_TECHNICIAN_LEVEL": (
-                                self.medium_technician_levels(),
+                                self.medium_technician_levels,
                                 1,
                             ),
                         },
@@ -350,7 +350,7 @@ class P5XGame(Game):
                         difficulty=DIFFICULTY_HARD,
                         label="Beat Technician HARD_TECHNICIAN_LEVEL",
                         data={
-                            "HARD_TECHNICIAN_LEVEL": (self.hard_technician_levels(), 1),
+                            "HARD_TECHNICIAN_LEVEL": (self.hard_technician_levels, 1),
                         },
                         is_time_consuming=False,
                         is_difficult=True,
@@ -366,9 +366,9 @@ class P5XGame(Game):
                         difficulty=DIFFICULTY_EASY,
                         label="Beat OTHER_VELVET_TRIAL OVT_EASY_LEVEL",
                         data={
-                            "OTHER_VELVET_TRIAL": (self.othervelvet_trials(), 1),
+                            "OTHER_VELVET_TRIAL": (self.othervelvet_trials, 1),
                             "OVT_EASY_LEVEL": (
-                                self.easy_other_velvet_trials_levels(),
+                                self.easy_other_velvet_trials_levels,
                                 1,
                             ),
                         },
@@ -380,9 +380,9 @@ class P5XGame(Game):
                         difficulty=DIFFICULTY_MEDIUM,
                         label="Beat OTHER_VELVET_TRIAL OVT_MEDIUM_LEVEL",
                         data={
-                            "OTHER_VELVET_TRIAL": (self.othervelvet_trials(), 1),
+                            "OTHER_VELVET_TRIAL": (self.othervelvet_trials, 1),
                             "OVT_MEDIUM_LEVEL": (
-                                self.medium_other_velvet_trials_levels(),
+                                self.medium_other_velvet_trials_levels,
                                 1,
                             ),
                         },
@@ -400,9 +400,9 @@ class P5XGame(Game):
                         difficulty=None,
                         label="Beat Metro of Desire MOD_LINE line station MOD_STATION",
                         data={
-                            "MOD_LINE": (self.metro_of_desire_lines(), 1),
+                            "MOD_LINE": (self.metro_of_desire_lines, 1),
                             "MOD_STATION": (
-                                self.metro_of_desire_terminal_stations(),
+                                self.metro_of_desire_terminal_stations,
                                 1,
                             ),
                         },
@@ -420,7 +420,7 @@ class P5XGame(Game):
                         difficulty=None,
                         label="Beat RECOLLECTION_BOSS",
                         data={
-                            "RECOLLECTION_BOSS": (self.recollection_bosses(), 1),
+                            "RECOLLECTION_BOSS": (self.recollection_bosses, 1),
                         },
                         is_time_consuming=False,
                         is_difficult=False,
@@ -447,7 +447,7 @@ class P5XGame(Game):
                 label_suffix=" without using any ROLE character or persona",
                 data={
                     "ROLE": (
-                        self.roles_for_role_exclusion(),
+                        self.roles_for_role_exclusion,
                         self.max_role_exclusion_count,
                     ),
                 },
@@ -456,14 +456,14 @@ class P5XGame(Game):
                 key=CONSTRAINT_ELEMENT_TEAM,
                 label_suffix=" with a ELEMENT team (at least 2 members beside Wonder)",
                 data={
-                    "ELEMENT": (self.elements(), 1),
+                    "ELEMENT": (self.elements, 1),
                 },
             ),
             ConstraintDefinition(
                 key=CONSTRAINT_TEAM_SIZE,
                 label_suffix=" with a TEAM_SIZE-characters team (Wonder and Navigator included)",
                 data={
-                    "TEAM_SIZE": (self.team_sizes(), 1),
+                    "TEAM_SIZE": (self.team_sizes, 1),
                 },
             ),
         ]
@@ -488,7 +488,7 @@ class P5XGame(Game):
         included_difficulties = self.included_difficulties
         included_constraints = self.included_constraints
         constraint_definitions = self.constraint_definitions()
-        templates: List[GameObjectiveTemplate] = []
+        templates: List[GameObjectiveTemplate] = list()
 
         for objective in self.objective_definitions():
             if objective.key not in included_base_objectives:
