@@ -15,12 +15,12 @@ class RandophiliaServerArchipelagoOptions:
 class RandophiliaNikoIsHereOption(Toggle):
     """Include everything Niko can face in the Keep."""
     display_name = "Randophilia - Niko is Here"
-    default = False
+    default = True
 
 class RandophiliaNonoIsHereOption(Toggle):
     """Include everything Nono can face in the Keep."""
     display_name = "Randophilia - Nono is Here"
-    default = False
+    default = True
 
 
 
