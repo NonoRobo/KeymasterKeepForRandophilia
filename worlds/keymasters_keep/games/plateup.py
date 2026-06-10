@@ -59,51 +59,47 @@ class PlateUpGame(Game):
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         game_objective_templates: List[GameObjectiveTemplate] = list()
 
-        if self.randophilia_noni_is_here:
-            game_objective_templates.extend([
-                GameObjectiveTemplate(
-                    label="Reach Day DAYNUMBER with one of these starting dishes: PLATES",
-                    data={
-                        "DAYNUMBER": (self.day_number, 1),
-                        "PLATES": (self.plates, 2),
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=2,
-                ),
-                GameObjectiveTemplate(
-                    label="Reach Day DAYNUMBER on a SIZE room",
-                    data={
-                        "DAYNUMBER": (self.day_number, 1),
-                        "SIZE": (self.room_size, 1),
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=2,
-                ),
-                GameObjectiveTemplate(
-                    label="Play with this restaurant setting : SETTINGS",
-                    data={
-                        "SETTINGS": (self.settings, 1),
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=2,
-                ),
-                GameObjectiveTemplate(
-                    label="Play the daily run",
-                    data={},
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=1,
-                ),
-            ])
+        game_objective_templates.extend([
+            GameObjectiveTemplate(
+                label="Reach Day DAYNUMBER with one of these starting dishes: PLATES",
+                data={
+                    "DAYNUMBER": (self.day_number, 1),
+                    "PLATES": (self.plates, 2),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=2,
+            ),
+            GameObjectiveTemplate(
+                label="Reach Day DAYNUMBER on a SIZE room",
+                data={
+                    "DAYNUMBER": (self.day_number, 1),
+                    "SIZE": (self.room_size, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=2,
+            ),
+            GameObjectiveTemplate(
+                label="Play with this restaurant setting : SETTINGS",
+                data={
+                    "SETTINGS": (self.settings, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=2,
+            ),
+            GameObjectiveTemplate(
+                label="Play the daily run",
+                data={},
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
+            ),
+        ])
 
         return game_objective_templates
 
-    @property
-    def randophilia_noni_is_here(self) -> bool:
-        return self.archipelago_options.randophilia_nono_is_here.value and self.archipelago_options.randophilia_niko_is_here.value
     
     @staticmethod
     def plates() -> List[str]:
@@ -200,6 +196,7 @@ class PlateUpGame(Game):
         return [
             "Libre",
             "Strict",
+            "Swap",
         ]
     @staticmethod
     def players() -> List[str]:
