@@ -34,54 +34,45 @@ class UnrailedGame(Game):
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         game_objective_templates: List[GameObjectiveTemplate] = list()
 
-        if self.randophilia_niko_is_here and self.randophilia_nono_is_here:
-            game_objective_templates.extend([
-                GameObjectiveTemplate(
-                    label="Reach biome BIOME in Endless Mode.",
-                    data={
-                        "BIOME": (self.biomes, 1),
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=1,
-                ),
-                GameObjectiveTemplate(
-                    label="Reach a distance of DISTANCE in Endless Mode.",
-                    data={
-                        "DISTANCE": (self.endless_track_distances, 1),
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=1,
-                ),
-                GameObjectiveTemplate(
-                    label="Win a Quick Mode game in DIFFICULTY.",
-                    data={
-                        "DIFFICULTY": (self.difficulties, 1),
-                    },
-                    is_time_consuming=False,
-                    is_difficult=True,
-                    weight=1,
-                ),
-                GameObjectiveTemplate(
-                    label="Reach the second biome in Time Mode.",
-                    data={},
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=1,
-                ),
-            ])
+        game_objective_templates.extend([
+            GameObjectiveTemplate(
+                label="Reach biome BIOME in Endless Mode.",
+                data={
+                    "BIOME": (self.biomes, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Reach a distance of DISTANCE in Endless Mode.",
+                data={
+                    "DISTANCE": (self.endless_track_distances, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Win a Quick Mode game in DIFFICULTY.",
+                data={
+                    "DIFFICULTY": (self.difficulties, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=True,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Reach the second biome in Time Mode.",
+                data={},
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
+            ),
+        ])
 
         return game_objective_templates
-    
-
-    @property
-    def randophilia_niko_is_here(self) -> bool:
-        return self.archipelago_options.randophilia_niko_is_here.value
-    @property
-    def randophilia_nono_is_here(self) -> bool:
-        return self.archipelago_options.randophilia_nono_is_here.value
-    
+ 
 
     @staticmethod
     def biomes() -> List[str]:
