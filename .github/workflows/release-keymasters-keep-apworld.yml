@@ -1,0 +1,155 @@
+name: Build keymasters_keep.apworld
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to build or repair, for example 1.0.0'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+env:
+  # Match the Python 3.12 version used by the Archipelago release workflow.
+  PYTHON_VERSION: '~3.12.7'
+
+jobs:
+  build-apworld:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Resolve release tag
+        id: release
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            TAG="${{ inputs.tag }}"
+          else
+            TAG="${GITHUB_REF_NAME}"
+          fi
+
+          if [[ ! "$TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Invalid tag '$TAG'. Expected X.Y.Z, for example 1.2.3"
+            exit 1
+          fi
+
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout tagged commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.release.outputs.tag }}
+
+      - name: Select Python version
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          check-latest: true
+
+      - name: Build ZIP and rename it as .apworld
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          rm -rf build dist
+          mkdir -p build dist
+
+          # Preserve keymasters_keep/ as the root directory inside the archive.
+          cp -a worlds/keymasters_keep build/keymasters_keep
+
+          # Remove old bytecode and regenerate it with Python 3.12.
+          find build/keymasters_keep -type d -name '__pycache__' -prune -exec rm -rf '{}' +
+          find build/keymasters_keep -type f -name '*.pyc' -delete
+
+          # Default compileall layout:
+          # module.py -> __pycache__/module.cpython-312.pyc
+          python -m compileall -f -q build/keymasters_keep
+
+          # Create keymasters_keep.zip containing the keymasters_keep/ directory,
+          # then rename the ZIP archive as keymasters_keep.apworld.
+          python - <<'PY'
+          import shutil
+
+          shutil.make_archive(
+              base_name="dist/keymasters_keep",
+              format="zip",
+              root_dir="build",
+              base_dir="keymasters_keep",
+          )
+          PY
+
+          mv dist/keymasters_keep.zip dist/keymasters_keep.apworld
+
+      - name: Validate APWorld archive
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          from pathlib import Path
+          import sys
+          import zipfile
+
+          archive = Path("dist/keymasters_keep.apworld")
+          expected_pyc_suffix = (
+              f".cpython-{sys.version_info.major}{sys.version_info.minor}.pyc"
+          )
+
+          with zipfile.ZipFile(archive) as apworld:
+              names = apworld.namelist()
+
+          print("Archive contents:")
+          for name in names:
+              print(name)
+
+          invalid_paths = [
+              name for name in names
+              if name != "keymasters_keep"
+              and not name.startswith("keymasters_keep/")
+          ]
+          if invalid_paths:
+              raise SystemExit(
+                  "Invalid archive paths outside keymasters_keep/: "
+                  + ", ".join(invalid_paths)
+              )
+
+          if not any(name.endswith(".py") for name in names):
+              raise SystemExit("The archive must keep the .py source files")
+
+          if not any(
+              "/__pycache__/" in name and name.endswith(expected_pyc_suffix)
+              for name in names
+          ):
+              raise SystemExit(
+                  "The archive must contain bytecode under __pycache__/ "
+                  f"with suffix {expected_pyc_suffix}"
+              )
+
+          print(f"Validated: {archive}")
+          PY
+
+      - name: Upload Actions artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: keymasters_keep-${{ steps.release.outputs.tag }}
+          path: dist/keymasters_keep.apworld
+          if-no-files-found: error
+
+      - name: Attach APWorld to GitHub Release
+        uses: softprops/action-gh-release@975c1b265e11dd76618af1c374e7981f9a6ff44a
+        with:
+          tag_name: ${{ steps.release.outputs.tag }}
+          draft: true
+          prerelease: false
+          files: dist/keymasters_keep.apworld
+          overwrite_files: true
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
