@@ -24,11 +24,8 @@ class DarkSoulsRemasteredGame(Game):
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         game_objective_templates: List[GameObjectiveTemplate] = list()
 
-        # Niko's objectives
-        if self.randophilia_niko_is_here:
-            nikobjectives: List[GameObjectiveTemplate] = list()
-            nikobjectives.extend(self.dsr_objectives(include_aotA=self.niko_dsr_include_aota))
-            game_objective_templates.extend(nikobjectives)
+        game_objective_templates.extend(self.dsr_objectives(include_aotA=self.niko_dsr_include_aota))
+
         return game_objective_templates
 
     def dsr_objectives(self, include_aotA: bool) -> List[GameObjectiveTemplate]:
@@ -44,7 +41,7 @@ class DarkSoulsRemasteredGame(Game):
                 weight=4,
             ),
              GameObjectiveTemplate(
-                label="Travel between this two areas : AREA",
+                label="Travel between these two areas: AREA",
                 data={
                     "AREA": (lambda: self.areas(dlc=include_aotA), 2)
                 },
@@ -56,9 +53,6 @@ class DarkSoulsRemasteredGame(Game):
         return objectives
 
     # Property
-    @property
-    def randophilia_niko_is_here(self) -> bool:
-        return self.archipelago_options.randophilia_niko_is_here.value
     @property
     def niko_dsr_include_aota(self) -> int:
         return self.archipelago_options.niko_dsr_include_aota.value
