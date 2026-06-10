@@ -59,10 +59,12 @@ Keymaster's Keep:
   
   randophilia_niko_is_here: 'true'
   niko_dsr_include_aota: 'true'
-  niko_celeste_include_core: 'false'
-  niko_celeste_include_farewell: 'false'
-  niko_celeste_include_b_side: 'false'
-  niko_celeste_include_c_side: 'true'
+
+  # STS2
+  sts2_include_custom: 'true'
+  sts2_include_duo: 'true'
+  sts2_players_reserving_rooms: {"Niko","Nono","Rom"}
+
   niko_vs_include_dlc:
     # The DLC Niko wants to include in the pool.
     # The DLCs are:

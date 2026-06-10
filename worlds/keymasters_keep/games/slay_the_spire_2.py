@@ -4,13 +4,16 @@ from typing import List
 
 from dataclasses import dataclass
 
+from Options import OptionList, Toggle
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 @dataclass
 class SlayTheSpire2ArchipelagoOptions:
-    pass
+    sts2_include_custom: STS2IncludeCustom
+    sts2_include_duo: STS2IncludeDuo
+    sts2_players_reserving_rooms: STS2PlayersReservingRoom
 
 class SlayTheSpire2Game(Game):
     name = "Slay the Spire 2"
@@ -27,34 +30,57 @@ class SlayTheSpire2Game(Game):
                 data={"ASCENSION": (self.ascension_levels, 1)},
             ),
         ])
+
+        if self.sts2_players_reserving_rooms.count > 0:
+            constraints.extend([
+                GameObjectiveTemplate(
+                    label="This room can only be entered by PLAYER.",
+                    data={"PLAYER": {self.sts2_players_reserving_rooms, 1}},
+                )
+            ])
+
         return constraints
     
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         game_objective_templates: List[GameObjectiveTemplate] = list()
 
         #### Weight details
-        # 50 % : Niko & Nono Normal run
-        # 50 % : Nono Custom run
+        # 50 % : Normal run
+        # 50 % : Custom run
 
         # Custom Runs
         custom_runs_total_weight: int = 1 # init to 1 even if no custom runs to ensure a valid minimum
-        if self.randophilia_nono_is_here:
+        if self.sts2_include_custom:
             game_objective_templates.extend(self.custom_objectives())
             custom_runs_total_weight = sum(o.weight for o in game_objective_templates)
 
         # Normal Runs
-        if self.randophilia_niko_is_here or self.randophilia_nono_is_here:
-            total_players: int = (1 if self.randophilia_niko_is_here else 0) + (1 if self.randophilia_nono_is_here else 0)
-            game_objective_templates.extend([
+        game_objective_templates.extend([
+            GameObjectiveTemplate(
+                label="Meet the Architect with the CHARACTER in Ascension ASCENSION",
+                data={
+                    "CHARACTER": (self.characters, 1),
+                    "ASCENSION": (self.ascension_levels, 1)
+                },
+                is_time_consuming=False,
+                is_difficult=True,
+                weight=custom_runs_total_weight,
+            ),
+        ])
+
+        # Duo Runs
+        if self.sts2_include_duo:
+            game_objective_templates.extends([
                 GameObjectiveTemplate(
-                    label="Meet the Architect with the CHARACTER in Ascension ASCENSION",
+                    label="Meet the Architect as a Duo with the CHAR1 and the CHAR2 in Ascension ASCENSION",
                     data={
-                        "CHARACTER": (self.characters, 1),
+                        "CHAR1": (self.characters, 1),
+                        "CHAR2": (self.characters, 1),
                         "ASCENSION": (self.ascension_levels, 1)
                     },
                     is_time_consuming=False,
                     is_difficult=True,
-                    weight=custom_runs_total_weight * total_players, # Niko doesn't do Customs, so we need extra weight when he's around
+                    weight=custom_runs_total_weight,
                 ),
             ])
 
@@ -93,14 +119,20 @@ class SlayTheSpire2Game(Game):
             ])
         return objectives
     
+
     @property
-    def randophilia_nono_is_here(self) -> bool:
-        return self.archipelago_options.randophilia_nono_is_here.value
+    def sts2_include_custom(self) -> bool:
+        return self.archipelago_options.sts2_include_custom.value
     
     @property
-    def randophilia_niko_is_here(self) -> bool:
-        return self.archipelago_options.randophilia_niko_is_here.value
+    def sts2_include_duo(self) -> bool:
+        return self.archipelago_options.sts2_include_duo.value
     
+    @property
+    def sts2_players_reserving_rooms(self) -> List[str]:
+        return self.archipelago_options.sts2_players_reserving_rooms.value
+    
+
     @staticmethod
     def ascension_levels() -> range:
         return range(0, 10+1, 1)
@@ -123,3 +155,29 @@ class SlayTheSpire2Game(Game):
     @staticmethod
     def bad_modifiers() -> List[str]:
         return ["Deadly Events","Cursed Run","Bug Game Hunter","Midas","Murderous","Night Terrors","Terminal"]
+    
+
+#
+# OPTIONS
+#
+
+class STS2IncludeCustom(Toggle):
+    """
+    [STS2] Include Custom Runs in trials
+    """
+    display_name = "STS2 Include Custom"
+    default = True
+
+class STS2IncludeDuo(Toggle):
+    """
+    [STS2] Include Duo Runs in trials
+    """
+    display_name = "STS2 Include Duo"
+    default = False
+
+class STS2PlayersReservingRoom(OptionList):
+    """
+    [STS2] Players who can have their name in room restriction
+    """
+    display_name = "STS2 Players Reserving Room"
+    default = {}

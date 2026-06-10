@@ -1,4 +1,4 @@
-﻿name: NonoKeep
+name: NonoKeep
 description: ONLY NONO IN HERE
 game: Keymaster's Keep
 requires:
@@ -51,8 +51,8 @@ Keymaster's Keep:
   nono_csd2_max_yum: 79
   nono_csd2_include_csd: 'true'
   nono_csd2_include_c4h: 'true'
-  
-  randophilia_niko_is_here: 'false'
+  sts2_include_custom: 'true'
+  sts2_include_duo: 'false'
 
   custom_objective_list: []
   game_backlog_game_selection: []

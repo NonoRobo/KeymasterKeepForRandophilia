@@ -51,6 +51,8 @@ Keymaster's Keep:
   
   randophilia_niko_is_here: 'true'
   niko_dsr_include_aota: 'true'
+  sts2_include_custom: 'false'
+  sts2_include_duo: 'false'
   niko_celeste_include_core: 'false'
   niko_celeste_include_farewell: 'false'
   niko_celeste_include_b_side: 'false'
