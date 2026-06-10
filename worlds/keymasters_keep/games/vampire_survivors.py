@@ -58,153 +58,150 @@ class VampireSurvivorsGame(Game):
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         game_objective_templates: List[GameObjectiveTemplate] = list()
         
-        if self.randophilia_niko_is_here:
-            game_objective_templates.extend([
-                GameObjectiveTemplate(
-                    label="Complete a run on STAGE",
-                    data={
-                        "STAGE": (lambda: self.stages(
-                            self.niko_LegacyOfTheMoonspell,
-                            self.niko_TidesOfTheFoscari,
-                            self.niko_EmergencyMeeting,
-                            self.niko_OperationGuns,
-                            self.niko_OdeToCastlevania,
-                            self.niko_EmeraldDiorama,
-                            self.niko_AnteChamber
-                            ), 1),
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=2,
-                ),  
-                GameObjectiveTemplate(
-                    label="Complete a challenge on CHALLENGE",
-                    data={
-                        "CHALLENGE": (lambda: self.vs_challenge_stages, 1),
-                    },
-                    is_time_consuming=False,
-                    is_difficult=True,
-                    weight=1,
-                ),
-                GameObjectiveTemplate(
-                    label="Complete a run on BONUS_STAGE",
-                    data={
-                        "BONUS_STAGE": (lambda: self.vs_bonus_stages, 1),
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=1,
-                ),
-                GameObjectiveTemplate(
-                    label="Complete a run playing CHARACTER",
-                    data={
+        game_objective_templates.extend([
+            GameObjectiveTemplate(
+                label="Complete a run on STAGE",
+                data={
+                    "STAGE": (lambda: self.stages(
+                        self.niko_LegacyOfTheMoonspell,
+                        self.niko_TidesOfTheFoscari,
+                        self.niko_EmergencyMeeting,
+                        self.niko_OperationGuns,
+                        self.niko_OdeToCastlevania,
+                        self.niko_EmeraldDiorama,
+                        self.niko_AnteChamber
+                        ), 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=2,
+            ),  
+            GameObjectiveTemplate(
+                label="Complete a challenge on CHALLENGE",
+                data={
+                    "CHALLENGE": (lambda: self.vs_challenge_stages, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=True,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Complete a run on BONUS_STAGE",
+                data={
+                    "BONUS_STAGE": (lambda: self.vs_bonus_stages, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Complete a run playing CHARACTER",
+                data={
+                    "CHARACTER": (lambda: self.characters(
+                        self.niko_LegacyOfTheMoonspell,
+                        self.niko_TidesOfTheFoscari,
+                        self.niko_EmergencyMeeting,
+                        self.niko_OperationGuns,
+                        self.niko_OdeToCastlevania,
+                        self.niko_EmeraldDiorama,
+                        self.niko_AnteChamber
+                        ), 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=3,
+            ),
+            GameObjectiveTemplate(
+                label="Complete a run playing CHARACTER on STAGE",
+                data={
+                    "CHARACTER": (lambda: self.characters(
+                        self.niko_LegacyOfTheMoonspell,
+                        self.niko_TidesOfTheFoscari,
+                        self.niko_EmergencyMeeting,
+                        self.niko_OperationGuns,
+                        self.niko_OdeToCastlevania,
+                        self.niko_EmeraldDiorama,
+                        self.niko_AnteChamber
+                        ), 1),
+                    "STAGE": (lambda: self.stages(
+                        self.niko_LegacyOfTheMoonspell,
+                        self.niko_TidesOfTheFoscari,
+                        self.niko_EmergencyMeeting,
+                        self.niko_OperationGuns,
+                        self.niko_OdeToCastlevania,
+                        self.niko_EmeraldDiorama,
+                        self.niko_AnteChamber
+                        ), 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=4,
+            ),
+            GameObjectiveTemplate(
+                label="Complete a run with this weapon: WEAPON_EVOLUTION",
+                data={
+                    "WEAPON_EVOLUTION": (lambda: self.weapons_evolution(
+                        self.niko_LegacyOfTheMoonspell,
+                        self.niko_TidesOfTheFoscari,
+                        self.niko_EmergencyMeeting,
+                        self.niko_OperationGuns,
+                        self.niko_OdeToCastlevania,
+                        self.niko_EmeraldDiorama,
+                        self.niko_AnteChamber
+                        ), 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=2,
+            ),
+            GameObjectiveTemplate(
+                label="Complete a run with this weapon: WEAPON_UNION",
+                data={
+                    "WEAPON_UNION": (lambda: self.weapons_union(
+                        self.niko_LegacyOfTheMoonspell,
+                        self.niko_TidesOfTheFoscari,
+                        self.niko_EmergencyMeeting,
+                        self.niko_OperationGuns,
+                        self.niko_OdeToCastlevania,
+                        self.niko_EmeraldDiorama,
+                        self.niko_AnteChamber
+                        ), 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Complete a run playing CHARACTER with this weapon: WEAPON_EVOLUTION",
+                data={
                         "CHARACTER": (lambda: self.characters(
-                            self.niko_LegacyOfTheMoonspell,
-                            self.niko_TidesOfTheFoscari,
-                            self.niko_EmergencyMeeting,
-                            self.niko_OperationGuns,
-                            self.niko_OdeToCastlevania,
-                            self.niko_EmeraldDiorama,
-                            self.niko_AnteChamber
-                            ), 1),
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=3,
-                ),
-                GameObjectiveTemplate(
-                    label="Complete a run playing CHARACTER on STAGE",
-                    data={
-                        "CHARACTER": (lambda: self.characters(
-                            self.niko_LegacyOfTheMoonspell,
-                            self.niko_TidesOfTheFoscari,
-                            self.niko_EmergencyMeeting,
-                            self.niko_OperationGuns,
-                            self.niko_OdeToCastlevania,
-                            self.niko_EmeraldDiorama,
-                            self.niko_AnteChamber
-                            ), 1),
-                        "STAGE": (lambda: self.stages(
-                            self.niko_LegacyOfTheMoonspell,
-                            self.niko_TidesOfTheFoscari,
-                            self.niko_EmergencyMeeting,
-                            self.niko_OperationGuns,
-                            self.niko_OdeToCastlevania,
-                            self.niko_EmeraldDiorama,
-                            self.niko_AnteChamber
-                            ), 1),
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=4,
-                ),
-                GameObjectiveTemplate(
-                    label="Complete a run with this weapon: WEAPON_EVOLUTION",
-                    data={
-                        "WEAPON_EVOLUTION": (lambda: self.weapons_evolution(
-                            self.niko_LegacyOfTheMoonspell,
-                            self.niko_TidesOfTheFoscari,
-                            self.niko_EmergencyMeeting,
-                            self.niko_OperationGuns,
-                            self.niko_OdeToCastlevania,
-                            self.niko_EmeraldDiorama,
-                            self.niko_AnteChamber
-                            ), 1),
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=2,
-                ),
-                GameObjectiveTemplate(
-                    label="Complete a run with this weapon: WEAPON_UNION",
-                    data={
-                        "WEAPON_UNION": (lambda: self.weapons_union(
-                            self.niko_LegacyOfTheMoonspell,
-                            self.niko_TidesOfTheFoscari,
-                            self.niko_EmergencyMeeting,
-                            self.niko_OperationGuns,
-                            self.niko_OdeToCastlevania,
-                            self.niko_EmeraldDiorama,
-                            self.niko_AnteChamber
-                            ), 1),
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=1,
-                ),
-                GameObjectiveTemplate(
-                    label="Complete a run playing CHARACTER with this weapon: WEAPON_EVOLUTION",
-                    data={
-                         "CHARACTER": (lambda: self.characters(
-                            self.niko_LegacyOfTheMoonspell,
-                            self.niko_TidesOfTheFoscari,
-                            self.niko_EmergencyMeeting,
-                            self.niko_OperationGuns,
-                            self.niko_OdeToCastlevania,
-                            self.niko_EmeraldDiorama,
-                            self.niko_AnteChamber
-                            ), 1),
-                        "WEAPON_EVOLUTION": (lambda: self.weapons_evolution(
-                            self.niko_LegacyOfTheMoonspell,
-                            self.niko_TidesOfTheFoscari,
-                            self.niko_EmergencyMeeting,
-                            self.niko_OperationGuns,
-                            self.niko_OdeToCastlevania,
-                            self.niko_EmeraldDiorama,
-                            self.niko_AnteChamber
-                            ), 1),
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=4,
-                ),
-            ])
+                        self.niko_LegacyOfTheMoonspell,
+                        self.niko_TidesOfTheFoscari,
+                        self.niko_EmergencyMeeting,
+                        self.niko_OperationGuns,
+                        self.niko_OdeToCastlevania,
+                        self.niko_EmeraldDiorama,
+                        self.niko_AnteChamber
+                        ), 1),
+                    "WEAPON_EVOLUTION": (lambda: self.weapons_evolution(
+                        self.niko_LegacyOfTheMoonspell,
+                        self.niko_TidesOfTheFoscari,
+                        self.niko_EmergencyMeeting,
+                        self.niko_OperationGuns,
+                        self.niko_OdeToCastlevania,
+                        self.niko_EmeraldDiorama,
+                        self.niko_AnteChamber
+                        ), 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=4,
+            ),
+        ])
+        
         return game_objective_templates
     
 #Property
-    @property
-    def randophilia_niko_is_here(self) -> bool:
-        return self.archipelago_options.randophilia_niko_is_here.value
     @property
     def niko_LegacyOfTheMoonspell(self) -> bool:
         return "Legacy of the Moonspell" in self.archipelago_options.niko_vs_include_dlc
