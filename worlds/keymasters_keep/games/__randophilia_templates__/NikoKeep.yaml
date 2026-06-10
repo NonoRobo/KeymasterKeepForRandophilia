@@ -47,9 +47,6 @@ Keymaster's Keep:
       'Slay the Spire 2 (PC)',
     ]
     
-  randophilia_nono_is_here: 'false'
-  
-  randophilia_niko_is_here: 'true'
   niko_dsr_include_aota: 'true'
   sts2_include_custom: 'false'
   sts2_include_duo: 'false'

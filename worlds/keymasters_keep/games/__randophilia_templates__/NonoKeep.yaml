@@ -1,4 +1,4 @@
-name: NonoKeep
+﻿name: NonoKeep
 description: ONLY NONO IN HERE
 game: Keymaster's Keep
 requires:
@@ -47,7 +47,6 @@ Keymaster's Keep:
       'Slay the Spire 2 (PC)',
     ]
     
-  randophilia_nono_is_here: 'true'
   nono_csd2_max_yum: 79
   nono_csd2_include_csd: 'true'
   nono_csd2_include_c4h: 'true'
