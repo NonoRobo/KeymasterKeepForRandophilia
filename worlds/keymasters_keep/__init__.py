@@ -1,20 +1,9 @@
 import os
 
-import sys
 import worlds.LauncherComponents as LauncherComponents
 from Utils import user_path
 
 from .world import KeymastersKeepWorld
-
-from NetUtils import RestrictedUnpickler
-
-# On importe ta classe d'option
-from .games.vampire_survivors import VampireSurvivorsNikoIncludeDLC
-
-# On l'ajoute manuellement aux modules globaux autorisés par Archipelago
-RestrictedUnpickler.global_safe_list.add(
-    ("worlds.keymasters_keep.games.vampire_survivors", "VampireSurvivorsNikoIncludeDLC")
-)
 
 games_path: str = user_path("keymasters_keep")
 
