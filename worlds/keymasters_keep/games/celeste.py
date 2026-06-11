@@ -46,17 +46,15 @@ class CelesteGame(Game):
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         game_objective_templates: List[GameObjectiveTemplate] = list()
         
-        if self.randophilia_niko_is_here:
-            nikobjectives: List[GameObjectiveTemplate] = list()
-            nikobjectives.extend(self.celeste_objectives(include_core=self.niko_celeste_include_core, include_farewell=self.niko_celeste_include_farewell))
-            game_objective_templates.extend(nikobjectives)
+        game_objective_templates.extend(self.celeste_objectives("Niko", include_core=self.niko_celeste_include_core, include_farewell=self.niko_celeste_include_farewell))
+
         return game_objective_templates
  
-    def celeste_objectives(self, include_core: bool, include_farewell: bool) -> List[GameObjectiveTemplate]:
+    def celeste_objectives(self, player_name, include_core: bool, include_farewell: bool) -> List[GameObjectiveTemplate]:
         celeste_objectives: List[GameObjectiveTemplate] = list()
         celeste_objectives.append(
             GameObjectiveTemplate(
-                label="Complete the CHAPTER on FACE",
+                label=f"{player_name} must complete the CHAPTER on FACE",
                 data={
                     "CHAPTER": (lambda: self.get_celeste_chapters(include_core=include_core, include_farewell=include_farewell), 1),
                     "FACE": (lambda: self.get_celeste_face(include_b=self.niko_celeste_include_b_side, include_c=self.niko_celeste_include_c_side), 1)
@@ -93,9 +91,6 @@ class CelesteGame(Game):
         return range(5, 15)
     
     #Property
-    @property
-    def randophilia_niko_is_here(self) -> bool:
-        return self.archipelago_options.randophilia_niko_is_here.value
     @property
     def niko_celeste_include_core(self) -> int:
         return self.archipelago_options.niko_celeste_include_core.value

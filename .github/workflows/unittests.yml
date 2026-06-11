@@ -8,18 +8,24 @@ on:
     paths:
       - '**'
       - '!docs/**'
+      - '!deploy/**'
       - '!setup.py'
+      - '!Dockerfile'
       - '!*.iss'
       - '!.gitignore'
+      - '!.dockerignore'
       - '!.github/workflows/**'
       - '.github/workflows/unittests.yml'
   pull_request:
     paths:
       - '**'
       - '!docs/**'
+      - '!deploy/**'
       - '!setup.py'
+      - '!Dockerfile'
       - '!*.iss'
       - '!.gitignore'
+      - '!.dockerignore'
       - '!.github/workflows/**'
       - '.github/workflows/unittests.yml'
 
@@ -34,9 +40,9 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         python:
-          - {version: '3.10'}
+          # - {version: '3.10', experimental:true}
           - {version: '3.11', experimental:true}
-          # - {version: '3.12', experimental:true}
+          - {version: '3.12'}
         # include:
           # - python: {version: '3.10'}  # old compat
           #   os: windows-latest
@@ -70,8 +76,7 @@ jobs:
         os:
           - ubuntu-latest
         python:
-          #- {version: '3.12'}  # current
-          - {version: '3.10'}
+          - {version: '3.12'}  # current
 
     steps:
     - uses: actions/checkout@v4
