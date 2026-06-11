@@ -12,9 +12,9 @@ from ..enums import KeymastersKeepGamePlatforms
 
 @dataclass
 class CookServeDelicious2ArchipelagoOptions:
-    nono_csd2_max_yum: CSD2NonoMaxYumLevel
-    nono_csd2_include_csd: CSD2NonoIncludeCSD
-    nono_csd2_include_c4h: CSD2NonoIncludeC4H
+    csd2_max_yum: CSD2MaxYumLevel
+    csd2_include_csd: CSD2IncludeCSD
+    csd2_include_c4h: CSD2IncludeC4H
 
 
 class CookServeDelicious2Game(Game):
@@ -28,50 +28,43 @@ class CookServeDelicious2Game(Game):
         game_objective_templates: List[GameObjectiveTemplate] = list()
     
         #### Weight details
-        # 50% : Nono CSD
-        # 50% : Nono C4H
+        # 50% : CSD
+        # 50% : C4H
 
-        if self.randophilia_nono_is_here:
-            nonobjectives: List[GameObjectiveTemplate] = list()
-            if self.nono_csd2_include_csd:
-                nonobjectives.extend(self.csd_objectives("NONO", self.nono_max_yum))
-            if self.nono_csd2_include_c4h:
-                nonobjectives.extend([
-                    GameObjectiveTemplate(
-                        label="[NONO] Perfect Day in SHIFT",
-                        data = {
-                            "SHIFT": (self.nono_shifts, 1)
-                        },
-                        is_time_consuming=False,
-                        is_difficult=False,
-                        # Set weight for 50/50 chance between C4H and CSD objectives
-                        weight=max(sum(o.weight for o in nonobjectives), 1),
-                    ),
-                ])
-            game_objective_templates.extend(nonobjectives);
+        if self.csd2_include_csd:
+            game_objective_templates.extend(self.csd_objectives(self.csd2_max_yum))
+        if self.csd2_include_c4h:
+            game_objective_templates.extend([
+                GameObjectiveTemplate(
+                    label="Perfect Day in SHIFT",
+                    data = {
+                        "SHIFT": (self.player_shifts, 1)
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    # Set weight for 50/50 chance between C4H and CSD objectives
+                    weight=max(sum(o.weight for o in game_objective_templates), 1),
+                ),
+            ])
 
         return game_objective_templates
     
-
-    @property
-    def randophilia_nono_is_here(self) -> bool:
-        return self.archipelago_options.randophilia_nono_is_here.value
     
     @property
-    def nono_max_yum(self) -> int:
-        return self.archipelago_options.nono_csd2_max_yum.value
+    def csd2_max_yum(self) -> int:
+        return self.archipelago_options.csd2_max_yum.value
     
     @property
-    def nono_csd2_include_csd(self) -> int:
-        return self.archipelago_options.nono_csd2_include_csd.value
+    def csd2_include_csd(self) -> int:
+        return self.archipelago_options.csd2_include_csd.value
     
     @property
-    def nono_csd2_include_c4h(self) -> int:
-        return self.archipelago_options.nono_csd2_include_c4h.value
+    def csd2_include_c4h(self) -> int:
+        return self.archipelago_options.csd2_include_c4h.value
     
     
 
-    def csd_objectives(self, player_tag, maxyum) -> List[GameObjectiveTemplate]:
+    def csd_objectives(self, maxyum) -> List[GameObjectiveTemplate]:
         """ Based on the configuration, generates a list of objective templates for CSD mode. """
         objectives = []
         for entree_count in range(1, self.max_entrees_for_yum(maxyum) + 1):
@@ -80,7 +73,7 @@ class CookServeDelicious2Game(Game):
                     for mode in self.csd_modes():
                         objectives.append(
                             GameObjectiveTemplate(
-                                label=f"[{player_tag}] Perfect Day in Cook Serve Delicious in {mode} mode with entrees: [ENTREES], sides: [SIDES], drinks: [DRINKS]",
+                                label=f"Perfect Day in Cook Serve Delicious in {mode} mode with entrees: [ENTREES], sides: [SIDES], drinks: [DRINKS]",
                                 data={
                                     "ENTREES": (self.csd_entrees_with_locked, entree_count),
                                     "SIDES": (self.csd_sides_with_locked, side_count),
@@ -97,8 +90,8 @@ class CookServeDelicious2Game(Game):
 
     
         
-    def nono_shifts(self) -> List[str]:
-        return self.shifts(self.nono_max_yum)
+    def player_shifts(self) -> List[str]:
+        return self.shifts(self.csd2_max_yum)
 
     def shifts(self, maxyum) -> List[str]:
         result = []
@@ -458,25 +451,25 @@ class CookServeDelicious2Game(Game):
 # OPTIONS
 #
 
-class CSD2NonoMaxYumLevel(Range):
+class CSD2MaxYumLevel(Range):
     """
-    Nono's max Yum
+    [CSD2] Max Yum Level
     """
-    display_name = "[NONO] Max Yum Level"
+    display_name = "[CSD2] Max Yum Level"
     range_start = 10
     range_end = 125
     default = 50
 
-class CSD2NonoIncludeCSD(Toggle):
+class CSD2IncludeCSD(Toggle):
     """
-    Nono wants to include CSD shifts
+    [CSD2] Include CSD shifts
     """
-    display_name = "[NONO] Include CSD"
+    display_name = "[CSD2] Include CSD shifts"
     default = True
 
-class CSD2NonoIncludeC4H(Toggle):
+class CSD2IncludeC4H(Toggle):
     """
-    Nono wants to include C4H shifts
+    [CSD2] Include C4H shifts
     """
-    display_name = "[NONO] Include C4H"
+    display_name = "[CSD2] Include C4H shifts"
     default = True

@@ -46,22 +46,32 @@ Keymaster's Keep:
       'Cook, Serve, Delicious! 2!! (PC)',
       'Dark Souls Remastered (PC)',
       'Outer Wilds (PC)',
+      'PlateUp! (PC)',
       'Slay the Spire 2 (PC)',
       'Unrailed! (PC)',
       'Vampire Survivors (PC)'
     ]
     
-  randophilia_nono_is_here: 'true'
-  nono_csd2_max_yum: 79
-  nono_csd2_include_csd: 'true'
-  nono_csd2_include_c4h: 'true'
-  
-  randophilia_niko_is_here: 'true'
-  niko_dsr_include_aota: 'true'
+  # Celeste
   niko_celeste_include_core: 'false'
   niko_celeste_include_farewell: 'false'
   niko_celeste_include_b_side: 'false'
   niko_celeste_include_c_side: 'true'
+  
+  # CSD2 (Nono)
+  csd2_max_yum: 79
+  csd2_include_csd: 'true'
+  csd2_include_c4h: 'true'
+  
+  # DSR
+  niko_dsr_include_aota: 'true'
+
+  # STS2
+  sts2_include_custom: 'true'
+  sts2_include_duo: 'true'
+  sts2_players_reserving_rooms: {"Niko","Nono","Rom"}
+
+  # Vampire Survivors
   niko_vs_include_dlc:
     # The DLC Niko wants to include in the pool.
     # The DLCs are:

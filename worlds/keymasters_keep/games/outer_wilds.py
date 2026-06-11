@@ -26,29 +26,28 @@ class OuterWildsGame(Game):
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         game_objective_templates: List[GameObjectiveTemplate] = list()
 
-        if self.randophilia_nono_is_here:
-            planetObjectives = self.all_planets_objectives()
-            game_objective_templates.extend(planetObjectives)
-            game_objective_templates.extend([
-                GameObjectiveTemplate(
-                    label="Talk to CHARACTER.",
-                    data={
-                        "CHARACTER": (self.characters, 1),
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=23 # Magic number yay
-                ),
-                GameObjectiveTemplate(
-                    label="Reach the 'ENDING' ending.",
-                    data={
-                        "ENDING": (self.endings, 1),
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=23 # Magic number yay
-                ),
-            ])
+        planetObjectives = self.all_planets_objectives()
+        game_objective_templates.extend(planetObjectives)
+        game_objective_templates.extend([
+            GameObjectiveTemplate(
+                label="Talk to CHARACTER.",
+                data={
+                    "CHARACTER": (self.characters, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=23 # Magic number yay
+            ),
+            GameObjectiveTemplate(
+                label="Reach the 'ENDING' ending.",
+                data={
+                    "ENDING": (self.endings, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=23 # Magic number yay
+            ),
+        ])
 
         return game_objective_templates
     
@@ -105,9 +104,6 @@ class OuterWildsGame(Game):
             )
         ]
     
-    @property
-    def randophilia_nono_is_here(self) -> bool:
-        return self.archipelago_options.randophilia_nono_is_here.value
     
     @staticmethod
     def characters() -> List[str]:
