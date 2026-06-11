@@ -64,7 +64,7 @@ jobs:
         python Launcher.py --update_settings  # make sure host.yaml exists for tests
     - name: Unittests
       run: |
-        pytest -n auto -k "not (TestOptions and Keep)"
+        pytest -n auto --ignore=test/general/test_options.py
 
   hosting:
     runs-on: ${{ matrix.os }}
