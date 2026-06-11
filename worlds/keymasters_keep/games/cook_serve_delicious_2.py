@@ -32,7 +32,7 @@ class CookServeDelicious2Game(Game):
         # 50% : C4H
 
         if self.csd2_include_csd:
-            game_objective_templates.extend(self.csd_objectives(self.nono_max_yum))
+            game_objective_templates.extend(self.csd_objectives(self.csd2_max_yum))
         if self.csd2_include_c4h:
             game_objective_templates.extend([
                 GameObjectiveTemplate(
