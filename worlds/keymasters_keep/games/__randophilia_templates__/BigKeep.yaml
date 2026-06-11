@@ -58,10 +58,10 @@ Keymaster's Keep:
   niko_celeste_include_b_side: 'false'
   niko_celeste_include_c_side: 'true'
   
-  # CSD2
-  nono_csd2_max_yum: 79
-  nono_csd2_include_csd: 'true'
-  nono_csd2_include_c4h: 'true'
+  # CSD2 (Nono)
+  csd2_max_yum: 79
+  csd2_include_csd: 'true'
+  csd2_include_c4h: 'true'
   
   # DSR
   niko_dsr_include_aota: 'true'
