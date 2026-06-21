@@ -31,11 +31,11 @@ class SlayTheSpire2Game(Game):
             ),
         ])
 
-        if self.sts2_players_reserving_rooms.count > 0:
+        if len(self.sts2_players_reserving_rooms) > 0:
             constraints.extend([
                 GameObjectiveTemplate(
                     label="This room can only be entered by PLAYER.",
-                    data={"PLAYER": {self.sts2_players_reserving_rooms, 1}},
+                    data={"PLAYER": (lambda: self.sts2_players_reserving_rooms, 1)},
                 )
             ])
 
@@ -70,7 +70,7 @@ class SlayTheSpire2Game(Game):
 
         # Duo Runs
         if self.sts2_include_duo:
-            game_objective_templates.extends([
+            game_objective_templates.extend([
                 GameObjectiveTemplate(
                     label="Meet the Architect as a Duo with the CHAR1 and the CHAR2 in Ascension ASCENSION",
                     data={
