@@ -52,7 +52,7 @@ Keymaster's Keep:
       'Vampire Survivors (PC)'
     ]
     
-  # Celeste
+  # Celeste (Niko)
   niko_celeste_include_core: 'false'
   niko_celeste_include_farewell: 'false'
   niko_celeste_include_b_side: 'false'
@@ -63,15 +63,59 @@ Keymaster's Keep:
   csd2_include_csd: 'true'
   csd2_include_c4h: 'true'
   
-  # DSR
+  # DSR (Niko)
   niko_dsr_include_aota: 'true'
 
-  # STS2
+  # Mewgenics (Nono)
+  mewgenics_unlocked_classes:
+    [
+      'Psychic',
+      'Hunter',
+      'Mage',
+      'Tank',
+      'Collarless',
+      'Druid',
+      'Fighter',
+      'Monk',
+      'Necromancer',
+      'Tinkerer',
+      'Butcher',
+      'Jester',
+      'Thief',
+      'Cleric'
+    ]
+  mewgenics_accessible_chapters:
+    [
+      '[A1][C1] Alley',
+      '[A1][C2] Junkyard',
+      '[A1][C2] Sewers',
+      '[A1][C3] Caves',
+      '[A1][C3] Boneyard',
+      '[A1][C4] Throbbing Domain',
+
+      #'[A2][C1] Desert',
+      #'[A2][C2] Bunker',
+      #'[A2][C2] The Crater',
+      #'[A2][C3] The Moon',
+      #'[A2][C3] The Core',
+      #'[A2][C4] The Rift',
+
+      #'[A3][C1] The Lab',
+      #'[A3][C2] The Future',
+      #'[A3][C2] Ice Age',
+      #'[A3][C3] The End',
+      #'[A3][C3] Jurassic',
+      #'[A3][C4] The Infinite',
+    ]
+  mewgenics_include_enddayevents: 'false'
+  mewgenics_include_classconstraints: 'true'
+
+  # STS2 (Niko, Nono, Rom)
   sts2_include_custom: 'true'
   sts2_include_duo: 'true'
   sts2_players_reserving_rooms: {"Niko","Nono","Rom"}
 
-  # Vampire Survivors
+  # Vampire Survivors (Niko)
   niko_vs_include_dlc:
     # The DLC Niko wants to include in the pool.
     # The DLCs are:
