@@ -12,8 +12,9 @@ from ..game_objective_template import GameObjectiveTemplate
 @dataclass
 class MewgenicsArchipelagoOptions:
     mewgenics_unlocked_classes: MewgenicsUnlockedClasses
-    mewgenics_include_enddayevents: MewgenicsIncludeEndDayEvents
     mewgenics_accessible_chapters: MewgenicsAccessibleChapters
+    mewgenics_include_enddayevents: MewgenicsIncludeEndDayEvents
+    mewgenics_include_classconstraints: MewgenicsIncludeClassConstraints
 
 class MewgenicsGame(Game):
     name = "Mewgenics"
@@ -25,12 +26,13 @@ class MewgenicsGame(Game):
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         constraints = []
 
-        constraints.extend([
-            GameObjectiveTemplate(
-                label="Have at least one CLASS cat in your team.",
-                data={"CLASS": (lambda: self.mewgenics_unlocked_classes, 1)},
-            ),
-        ])
+        if self.mewgenics_include_classconstraints:
+            constraints.extend([
+                GameObjectiveTemplate(
+                    label="Have at least one CLASS cat in your team.",
+                    data={"CLASS": (lambda: self.mewgenics_unlocked_classes, 1)},
+                ),
+            ])
 
         return constraints
     
@@ -83,12 +85,16 @@ class MewgenicsGame(Game):
         return self.archipelago_options.mewgenics_unlocked_classes.value
     
     @property
+    def mewgenics_accessible_chapters(self) -> bool:
+        return self.archipelago_options.mewgenics_accessible_chapters.value
+    
+    @property
     def mewgenics_include_enddayevents(self) -> bool:
         return self.archipelago_options.mewgenics_include_enddayevents.value
     
     @property
-    def mewgenics_accessible_chapters(self) -> bool:
-        return self.archipelago_options.mewgenics_accessible_chapters.value
+    def mewgenics_include_classconstraints(self) -> bool:
+        return self.archipelago_options.mewgenics_include_classconstraints.value
     
 
     @staticmethod
@@ -141,13 +147,6 @@ class MewgenicsUnlockedClasses(OptionList):
     }
     default = valid_keys
 
-class MewgenicsIncludeEndDayEvents(Toggle):
-    """
-    [Mewgenics] Includes events at the End of Day (be warned of the randomness!)
-    """
-    display_name = "[Mewgenics] Include End of Day Events"
-    default = False
-
 class MewgenicsAccessibleChapters(OptionList):
     """
     [Mewgenics] Accessible chapters
@@ -190,3 +189,17 @@ class MewgenicsAccessibleChapters(OptionList):
         "[A3][C4] The Infinite",
     }
     default = valid_keys
+
+class MewgenicsIncludeEndDayEvents(Toggle):
+    """
+    [Mewgenics] Includes events at the End of Day (be warned of the randomness!)
+    """
+    display_name = "[Mewgenics] Include End of Day Events"
+    default = False
+
+class MewgenicsIncludeClassConstraints(Toggle):
+    """
+    [Mewgenics] Includes constraints related to cats classes.
+    """
+    display_name = "[Mewgenics] Include class constraints"
+    default = True
