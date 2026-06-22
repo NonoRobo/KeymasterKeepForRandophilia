@@ -13,6 +13,7 @@ from ..game_objective_template import GameObjectiveTemplate
 class MewgenicsArchipelagoOptions:
     mewgenics_unlocked_classes: MewgenicsUnlockedClasses
     mewgenics_include_enddayevents: MewgenicsIncludeEndDayEvents
+    mewgenics_accessible_chapters: MewgenicsAccessibleChapters
 
 class MewgenicsGame(Game):
     name = "Mewgenics"
@@ -58,9 +59,21 @@ class MewgenicsGame(Game):
                     },
                     is_time_consuming=True,
                     is_difficult=False,
-                    weight=1,
+                    weight=10,
                 )
             ])
+
+        game_objective_templates.extend([
+            GameObjectiveTemplate(
+                label="Bring your team through LEVEL.",
+                data={
+                    "LEVEL": (lambda: self.mewgenics_accessible_chapters, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=20,
+            )
+        ])
 
         return game_objective_templates
     
@@ -72,6 +85,10 @@ class MewgenicsGame(Game):
     @property
     def mewgenics_include_enddayevents(self) -> bool:
         return self.archipelago_options.mewgenics_include_enddayevents.value
+    
+    @property
+    def mewgenics_accessible_chapters(self) -> bool:
+        return self.archipelago_options.mewgenics_accessible_chapters.value
     
 
     @staticmethod
@@ -130,3 +147,46 @@ class MewgenicsIncludeEndDayEvents(Toggle):
     """
     display_name = "[Mewgenics] Include End of Day Events"
     default = False
+
+class MewgenicsAccessibleChapters(OptionList):
+    """
+    [Mewgenics] Accessible chapters
+    Chapters are:
+    - Act 1
+    -- Chapter 1: Alley
+    -- Chapter 2: Sewers, Junkyard
+    -- Chapter 3: Boneyard
+    -- Chapter 4: Throbbing Domain
+    - Act 2
+    -- Chapter 1: Desert
+    -- Chapter 2: Bunker, The Crater
+    -- Chapter 3: The Core, The Moon
+    -- Chapter 4: The Rift
+    - Act 3
+    -- Chapter 1: The Lab
+    -- Chapter 2: Ice Age, The Future
+    -- Chapter 3: Jurassic, The End
+    -- Chapter 4: The Infinite
+    """
+    display_name = "[Mewgenics] Accessible chapters ([Act][Chapter]Path)"
+    valid_keys = {
+        "[A1][C1] Alley",
+        "[A1][C2] Sewers",
+        "[A1][C2] Junkyard",
+        "[A1][C3] Caves",
+        "[A1][C3] Boneyard",
+        "[A1][C4] Throbbing Domain",
+        "[A2][C1] Desert",
+        "[A2][C2] Bunker",
+        "[A2][C2] The Crater",
+        "[A2][C3] The Core",
+        "[A2][C3] The Moon",
+        "[A2][C4] The Rift",
+        "[A3][C1] The Lab",
+        "[A3][C2] Ice Age",
+        "[A3][C2] The Future",
+        "[A3][C3] Jurassic",
+        "[A3][C3] The End",
+        "[A3][C4] The Infinite",
+    }
+    default = valid_keys
