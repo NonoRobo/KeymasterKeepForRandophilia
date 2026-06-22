@@ -34,6 +34,17 @@ class MewgenicsGame(Game):
                 ),
             ])
 
+        constraints.extend([
+            GameObjectiveTemplate(
+                label="If a cat fights at the end of day, it has to go on adventure the following day.",
+                data={},
+            ),
+            GameObjectiveTemplate(
+                label="Give priority to injured or sick cats to adventure.",
+                data={},
+            ),
+        ])
+
         return constraints
     
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
