@@ -12,6 +12,7 @@ from ..game_objective_template import GameObjectiveTemplate
 @dataclass
 class MewgenicsArchipelagoOptions:
     mewgenics_unlocked_classes: MewgenicsUnlockedClasses
+    mewgenics_include_enddayevents: MewgenicsIncludeEndDayEvents
 
 class MewgenicsGame(Game):
     name = "Mewgenics"
@@ -48,12 +49,42 @@ class MewgenicsGame(Game):
                 ),
             ])
 
+        if self.mewgenics_include_enddayevents:
+            game_objective_templates.extend([
+                GameObjectiveTemplate(
+                    label="Witness ENDOFDAY at the end of day.",
+                    data={
+                        "ENDOFDAY": (self.endofdayevents, 1),
+                    },
+                    is_time_consuming=True,
+                    is_difficult=False,
+                    weight=1,
+                )
+            ])
+
         return game_objective_templates
     
     
     @property
     def mewgenics_unlocked_classes(self) -> List[str]:
         return self.archipelago_options.mewgenics_unlocked_classes.value
+    
+    @property
+    def mewgenics_include_enddayevents(self) -> bool:
+        return self.archipelago_options.mewgenics_include_enddayevents.value
+    
+
+    @staticmethod
+    def endofdayevents() -> List[str]:
+        return [
+            # breeding
+            "the birth of a kitten",
+            "the birth of two kittens",
+            "a cat dying",
+            "a cat eating something it should not",
+            "two cats fighting",
+            "a cat changing (health or age)",
+        ]
     
 class MewgenicsUnlockedClasses(OptionList):
     """
@@ -92,3 +123,10 @@ class MewgenicsUnlockedClasses(OptionList):
         "Jester",
     }
     default = valid_keys
+
+class MewgenicsIncludeEndDayEvents(Toggle):
+    """
+    [Mewgenics] Includes events at the End of Day (be warned of the randomness!)
+    """
+    display_name = "[Mewgenics] Include End of Day Events"
+    default = False
