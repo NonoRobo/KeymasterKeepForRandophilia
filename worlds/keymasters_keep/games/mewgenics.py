@@ -39,7 +39,7 @@ class MewgenicsGame(Game):
         for class_count in range(1, 4+1):
             game_objective_templates.extend([
                 GameObjectiveTemplate(
-                    label="Win a run with a team containing CLASS cats.",
+                    label="Run an adventure with a team containing CLASS cats.",
                     data={
                         "CLASS": (lambda: self.mewgenics_unlocked_classes, class_count),
                     },
