@@ -444,7 +444,7 @@ class CookServeDelicious2Game(Game):
     
     @staticmethod
     def csd_modes() -> List[str]:
-        return ["Classic","Standard","Zen"]
+        return ["Standard","Zen"]
 
 
 #
