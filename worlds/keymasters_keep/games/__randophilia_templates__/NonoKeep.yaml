@@ -48,7 +48,7 @@ Keymaster's Keep:
       'Slay the Spire 2 (PC)',
     ]
     
-  csd2_max_yum: 79
+  csd2_max_yum: 80
   csd2_include_csd: 'true'
   csd2_include_c4h: 'true'
   

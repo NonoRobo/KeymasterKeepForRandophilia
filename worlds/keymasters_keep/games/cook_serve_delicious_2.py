@@ -36,7 +36,7 @@ class CookServeDelicious2Game(Game):
         if self.csd2_include_c4h:
             game_objective_templates.extend([
                 GameObjectiveTemplate(
-                    label="Perfect Day in SHIFT",
+                    label="Work in SHIFT",
                     data = {
                         "SHIFT": (self.player_shifts, 1)
                     },
@@ -73,7 +73,7 @@ class CookServeDelicious2Game(Game):
                     for mode in self.csd_modes():
                         objectives.append(
                             GameObjectiveTemplate(
-                                label=f"Perfect Day in Cook Serve Delicious in {mode} mode with entrees: [ENTREES], sides: [SIDES], drinks: [DRINKS]",
+                                label=f"Work at Cook Serve Delicious in {mode} mode with entrees: [ENTREES], sides: [SIDES], drinks: [DRINKS]",
                                 data={
                                     "ENTREES": (self.csd_entrees_with_locked, entree_count),
                                     "SIDES": (self.csd_sides_with_locked, side_count),
@@ -444,7 +444,7 @@ class CookServeDelicious2Game(Game):
     
     @staticmethod
     def csd_modes() -> List[str]:
-        return ["Classic","Standard","Zen"]
+        return ["Standard","Zen"]
 
 
 #
