@@ -49,7 +49,46 @@ Keymaster's Keep:
       'PlateUp! (PC)',
       'Slay the Spire 2 (PC)',
       'Unrailed! (PC)',
-      'Vampire Survivors (PC)'
+      'Vampire Survivors (PC)',
+      'Persona 5: The Phantom X (PC)'
+    ]
+
+  # P5X (Tim)
+  owned_element_teams: 
+    [
+      'Fire',
+      'Ice',
+      'Electric',
+      'Wind',
+      'Bless',
+      'Curse',
+      'Psychokinesis',
+      'Nuke',
+      'Physical'
+    ]
+  min_team_size_cap: 4
+  max_role_exclusion_count: 2
+  role_exclusion_include_navigator_role: 'true'
+  role_exclusion_include_dps_roles: 'true'
+  included_constraints: 
+    [
+      'None',
+      '3 Stars',
+      'Role Exclusion',
+      'Element Team',
+      'Team Size'
+    ]
+  included_base_objectives:
+    [
+      'Technician',
+      'Other Velvet Trial',
+      'Metro of Desire',
+      'Recollection Boss'
+    ]
+  included_difficulties:
+    [
+      'Easy',
+      'Medium'
     ]
     
   # Celeste (Niko)
