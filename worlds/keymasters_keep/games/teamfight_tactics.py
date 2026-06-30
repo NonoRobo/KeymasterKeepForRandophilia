@@ -11,7 +11,7 @@ from ..game_objective_template import GameObjectiveTemplate
 
 @dataclass
 class TeamfightTacticsArchipelagoOptions:
-    pass
+    tft_includedoubleupmode: TFTIncludeDoubleUpMode
 
 class TeamfightTacticsGame(Game):
     name = "Teamfight Tactics"
@@ -22,6 +22,19 @@ class TeamfightTacticsGame(Game):
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         constraints = []
+
+        if self.tft_includedoubleupmode:
+            constraints.extend([
+                GameObjectiveTemplate(
+                    label="Play solo",
+                    data={},
+                ),
+                GameObjectiveTemplate(
+                    label="Play Douple Up",
+                    data={},
+                ),
+            ])
+
         return constraints
     
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
@@ -56,4 +69,17 @@ class TeamfightTacticsGame(Game):
         ])
 
         return game_objective_templates
+    
+    
+    @property
+    def tft_includedoubleupmode(self) -> bool:
+        return self.archipelago_options.tft_includedoubleupmode.value
 
+
+
+class TFTIncludeDoubleUpMode(Toggle):
+    """
+    [TFT] Include Solo/Double Up Mode as constraints
+    """
+    display_name = "[TFT] Include solo/duo mode"
+    default = False
