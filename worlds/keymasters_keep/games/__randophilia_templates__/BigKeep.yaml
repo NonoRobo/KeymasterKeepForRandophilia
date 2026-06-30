@@ -50,6 +50,7 @@ Keymaster's Keep:
       'League of Legends (PC)',
       'Mewgenics (PC)',
       'Outer Wilds (PC)',
+      'Path of Exile 2 (PC)',
       'PlateUp! (PC)',
       'Slay the Spire 2 (PC)',
       'Teamfight Tactics (PC)',
@@ -116,6 +117,10 @@ Keymaster's Keep:
     ]
   mewgenics_include_enddayevents: 'false'
   mewgenics_include_classconstraints: 'true'
+
+  # PoE2
+  poe2_minmapworth: 5
+  poe2_maxmapworth: 10
 
   # STS2
   sts2_include_custom: 'true'
