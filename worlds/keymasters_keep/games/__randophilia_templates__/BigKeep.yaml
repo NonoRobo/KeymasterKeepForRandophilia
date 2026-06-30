@@ -73,6 +73,10 @@ Keymaster's Keep:
   # DSR
   niko_dsr_include_aota: 'true'
 
+  # LoL
+  lol_unlocked_champions:
+    ['Morgana', 'Hecarim', 'Shyvana', 'Janna', 'Seraphine', "Bel'Veth", 'Udyr', 'Camille', 'Ivern', 'Lissandra', 'Nami', 'Miss Fortune', 'Elise', 'Mordekaiser', 'Heimerdinger', 'Sivir', 'Aphelios', 'Caitlyn', 'Vladimir', 'Yuumi', 'Leona', 'Graves', 'Twisted Fate', 'Diana', 'LeBlanc', 'Draven', 'Renata Glasc', 'Fizz', 'Kassadin', 'Viego', 'Rumble', 'Zeri', 'Kalista', 'Gwen', 'Azir', "Kai'Sa", 'Orianna', 'Tristana', 'Ziggs', 'Aurora', 'Kayn', 'Rell', 'Lux', 'Jhin', 'Urgot', 'Gnar', 'Veigar', 'Garen', 'Corki', 'Syndra', 'Evelynn', 'Vi', 'Teemo', 'Alistar', 'Bard', 'Akali', "Kha'Zix", 'Rakan', 'Qiyana', 'Lee Sin', 'Poppy', 'Pantheon', 'Twitch', "Kog'Maw", 'Amumu', 'Taliyah', 'Cassiopeia', 'Irelia', 'Rammus', 'Renekton', 'Trundle', 'Jarvan IV', 'Darius', "K'Sante", 'Wukong', 'Nidalee', "Cho'Gath", 'Sylas', 'Pyke', 'Tryndamere', "Vel'Koz", 'Shaco', 'Maokai', 'Rengar', 'Fiora', 'Riven', 'Hwei', 'Talon', 'Malzahar', 'Gangplank', 'Olaf', 'Lulu', 'Jayce', 'Warwick', 'Nunu', 'Ezreal', 'Braum', 'Zed', 'Vex', 'Annie', 'Nocturne', 'Yone', 'Skarner', 'Nasus', 'Ornn', 'Volibear', 'Jax', 'Zoe', 'Lucian', 'Sion', 'Dr. Mundo', 'Brand', "Rek'Sai", 'Xayah', 'Tahm Kench', 'Nautilus', 'Swain', 'Gragas', 'Yorick', 'Akshan', 'Malphite', 'Shen', 'Sett', 'Neeko', 'Sona', 'Milio', 'Ekko', 'Kayle', 'Samira', 'Jinx', 'Zilean', 'Zac', 'Senna', 'Vayne', 'Aatrox', 'Singed', 'Sejuani', 'Master Yi', 'Aurelion Sol', 'Fiddlesticks', 'Illaoi', 'Kindred', 'Xerath', 'Anivia', 'Yasuo', 'Galio', 'Briar', 'Taric', 'Karma', 'Zyra', 'Soraka', 'Xin Zhao', 'Varus', 'Ryze', 'Naafiri', 'Kled', 'Blitzcrank', 'Thresh', 'Karthus', 'Katarina', 'Lillia', 'Ahri', 'Nilah', 'Smolder', 'Ashe', 'Viktor', 'Kennen', 'Quinn']
+
   # Mewgenics
   mewgenics_unlocked_classes:
     [
