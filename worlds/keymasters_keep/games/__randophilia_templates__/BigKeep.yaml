@@ -52,6 +52,7 @@ Keymaster's Keep:
       'Mewgenics (PC)',
       'Outer Wilds (PC)',
       'Path of Exile 2 (PC)',
+      'Persona 5: The Phantom X (PC + AND, IOS)',
       'PlateUp! (PC)',
       'Slay the Spire 2 (PC)',
       'Teamfight Tactics (PC)',
@@ -130,6 +131,44 @@ Keymaster's Keep:
   # PoE2
   poe2_minmapworth: 5
   poe2_maxmapworth: 10
+
+  # P5X
+  owned_element_teams: 
+    [
+      'Fire',
+      'Ice',
+      'Electric',
+      'Wind',
+      'Bless',
+      'Curse',
+      'Psychokinesis',
+      'Nuke',
+      'Physical'
+    ]
+  min_team_size_cap: 4
+  max_role_exclusion_count: 2
+  role_exclusion_include_navigator_role: 'true'
+  role_exclusion_include_dps_roles: 'true'
+  included_constraints: 
+    [
+      'None',
+      '3 Stars',
+      'Role Exclusion',
+      'Element Team',
+      'Team Size'
+    ]
+  included_base_objectives:
+    [
+      'Technician',
+      'Other Velvet Trial',
+      'Metro of Desire',
+      'Recollection Boss'
+    ]
+  included_difficulties:
+    [
+      'Easy',
+      'Medium'
+    ]
 
   # STS2
   sts2_include_custom: 'true'
