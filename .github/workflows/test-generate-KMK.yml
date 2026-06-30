@@ -1,14 +1,32 @@
 # This workflow will build a release-like distribution when manually dispatched
 
-name: Build
+name: Test generate KMK
 
 on:
   push:
     paths:
-      - '**'
+        - '**'
+        - '!docs/**'
+        - '!deploy/**'
+        - '!setup.py'
+        - '!Dockerfile'
+        - '!*.iss'
+        - '!.gitignore'
+        - '!.dockerignore'
+        - '!.github/workflows/**'
+        - '.github/workflows/test-generate-KMK.yml'
   pull_request:
     paths:
-      - '**'
+        - '**'
+        - '!docs/**'
+        - '!deploy/**'
+        - '!setup.py'
+        - '!Dockerfile'
+        - '!*.iss'
+        - '!.gitignore'
+        - '!.dockerignore'
+        - '!.github/workflows/**'
+        - '.github/workflows/test-generate-KMK.yml'
   workflow_dispatch:
 
 env:
