@@ -48,6 +48,7 @@ Keymaster's Keep:
       'Cook, Serve, Delicious! 2!! (PC)',
       'Dark Souls Remastered (PC)',
       'League of Legends (PC)',
+      'Lord of the Rings Online (PC)',
       'Mewgenics (PC)',
       'Outer Wilds (PC)',
       'Path of Exile 2 (PC)',
@@ -75,7 +76,11 @@ Keymaster's Keep:
 
   # LoL
   lol_unlocked_champions:
-    ['Morgana', 'Hecarim', 'Shyvana', 'Janna', 'Seraphine', "Bel'Veth", 'Udyr', 'Camille', 'Ivern', 'Lissandra', 'Nami', 'Miss Fortune', 'Elise', 'Mordekaiser', 'Heimerdinger', 'Sivir', 'Aphelios', 'Caitlyn', 'Vladimir', 'Yuumi', 'Leona', 'Graves', 'Twisted Fate', 'Diana', 'LeBlanc', 'Draven', 'Renata Glasc', 'Fizz', 'Kassadin', 'Viego', 'Rumble', 'Zeri', 'Kalista', 'Gwen', 'Azir', "Kai'Sa", 'Orianna', 'Tristana', 'Ziggs', 'Aurora', 'Kayn', 'Rell', 'Lux', 'Jhin', 'Urgot', 'Gnar', 'Veigar', 'Garen', 'Corki', 'Syndra', 'Evelynn', 'Vi', 'Teemo', 'Alistar', 'Bard', 'Akali', "Kha'Zix", 'Rakan', 'Qiyana', 'Lee Sin', 'Poppy', 'Pantheon', 'Twitch', "Kog'Maw", 'Amumu', 'Taliyah', 'Cassiopeia', 'Irelia', 'Rammus', 'Renekton', 'Trundle', 'Jarvan IV', 'Darius', "K'Sante", 'Wukong', 'Nidalee', "Cho'Gath", 'Sylas', 'Pyke', 'Tryndamere', "Vel'Koz", 'Shaco', 'Maokai', 'Rengar', 'Fiora', 'Riven', 'Hwei', 'Talon', 'Malzahar', 'Gangplank', 'Olaf', 'Lulu', 'Jayce', 'Warwick', 'Nunu', 'Ezreal', 'Braum', 'Zed', 'Vex', 'Annie', 'Nocturne', 'Yone', 'Skarner', 'Nasus', 'Ornn', 'Volibear', 'Jax', 'Zoe', 'Lucian', 'Sion', 'Dr. Mundo', 'Brand', "Rek'Sai", 'Xayah', 'Tahm Kench', 'Nautilus', 'Swain', 'Gragas', 'Yorick', 'Akshan', 'Malphite', 'Shen', 'Sett', 'Neeko', 'Sona', 'Milio', 'Ekko', 'Kayle', 'Samira', 'Jinx', 'Zilean', 'Zac', 'Senna', 'Vayne', 'Aatrox', 'Singed', 'Sejuani', 'Master Yi', 'Aurelion Sol', 'Fiddlesticks', 'Illaoi', 'Kindred', 'Xerath', 'Anivia', 'Yasuo', 'Galio', 'Briar', 'Taric', 'Karma', 'Zyra', 'Soraka', 'Xin Zhao', 'Varus', 'Ryze', 'Naafiri', 'Kled', 'Blitzcrank', 'Thresh', 'Karthus', 'Katarina', 'Lillia', 'Ahri', 'Nilah', 'Smolder', 'Ashe', 'Viktor', 'Kennen', 'Quinn']
+    ['Ornn', 'Nidalee', 'Sejuani', 'Kennen', 'Galio', 'Katarina', 'Warwick', "Bel'Veth", 'Ivern', 'Aurelion Sol', 'Kayn', "Vel'Koz", 'Veigar', 'Swain', 'Karma', 'Riven', 'Jhin', 'Maître Yi', 'Naafiri', 'Darius', 'Malzahar', 'Fizz', 'Fiora', 'Hecarim', "Kog'Maw", 'Nautilus', 'Jarvan IV', 'Draven', 'Malphite', 'Elise', 'Lissandra', 'Zed', 'Milio', 'Tryndamere', 'Ziggs', "Kha'Zix", 'Xayah', 'Quinn', 'Olaf', 'Vex', 'Shen', 'Sivir', 'Akshan', 'Xerath', 'Braum', 'Lulu', 'Yunara', 'Garen', 'Skarner', 'Shaco', 'Ryze', 'Irelia', 'Pantheon', 'Sylas', 'Dr. Mundo', 'Poppy', 'Jax', 'Aurora', 'Janna', 'Syndra', 'Vayne', 'Heimerdinger', 'Sona', 'Gnar', 'Soraka', 'Ambessa', 'Zilean', 'Jinx', 'Wukong', 'Lillia', 'Illaoi', 'Mel', 'Ashe', 'Nunu et Willump', 'Renata Glasc', 'Aphelios', 'Singed', 'Orianna', 'Miss Fortune', 'Yuumi', 'Akali', 'Fiddlesticks', 'Rumble', 'Kled', 'Shyvana', 'Zoe', 'Corki', 'Neeko', 'Pyke', 'Kassadin', 'Ahri', 'Viktor', 'Zac', 'Taric', 'Gwen', 'Trundle', 'Senna', 'Graves', 'Karthus', 'Volibear', 'Azir', 'Sion', 'Vi', 'Vladimir', "Rek'Sai", 'Cassiopeia', 'Mordekaiser', 'Yorick', 'Xin Zhao', 'Nilah', 'Kalista', 'Blitzcrank', 'Ezreal', 'Lux', 'Aatrox', 'Talon', 'Urgot', 'Renekton', 'Teemo', 'Seraphine', 'Diana', 'Udyr', 'Kindred', 'Amumu', 'Lucian', 'Ekko', 'Evelynn', 'Locke', 'Jayce', 'Smolder', 'Annie', 'Nasus', 'Brand', 'Hwei', 'Alistar', "Cho'Gath", 'Anivia', 'LeBlanc', 'Samira', 'Leona', 'Camille', 'Lee Sin', 'Sett', 'Twitch', 'Zeri', 'Twisted Fate', 'Gragas', "Kai'Sa", 'Zaahen', 'Caitlyn', 'Viego', 'Tahm Kench', 'Taliyah', 'Maokai', 'Rammus', 'Rakan', 'Briar', 'Qiyana', 'Morgana', 'Yasuo', 'Nocturne', 'Thresh', 'Yone', "K'Sante", 'Rengar', 'Kayle', 'Gangplank', 'Tristana', 'Varus', 'Rell', 'Zyra', 'Nami', 'Bard']
+
+  # LoTRO
+  lotro_minfestivaltokens: 3
+  lotro_maxfestivaltokens: 20
 
   # Mewgenics
   mewgenics_unlocked_classes:
