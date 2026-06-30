@@ -136,6 +136,9 @@ Keymaster's Keep:
   sts2_include_duo: 'true'
   sts2_players_reserving_rooms: {"Niko","Nono","Rom"}
 
+  # TFT
+  tft_includedoubleupmode: 'true'
+
   # Valorant
   valo_maxkillinround: 3
 
