@@ -4,29 +4,7 @@ name: Test generate KMK
 
 on:
   push:
-    paths:
-        - '**'
-        - '!docs/**'
-        - '!deploy/**'
-        - '!setup.py'
-        - '!Dockerfile'
-        - '!*.iss'
-        - '!.gitignore'
-        - '!.dockerignore'
-        - '!.github/workflows/**'
-        - '.github/workflows/test-generate-KMK.yml'
   pull_request:
-    paths:
-        - '**'
-        - '!docs/**'
-        - '!deploy/**'
-        - '!setup.py'
-        - '!Dockerfile'
-        - '!*.iss'
-        - '!.gitignore'
-        - '!.dockerignore'
-        - '!.github/workflows/**'
-        - '.github/workflows/test-generate-KMK.yml'
   workflow_dispatch:
 
 env:
@@ -38,9 +16,7 @@ env:
   APPIMAGE_RUNTIME_VERSION: continuous
   APPIMAGE_RUNTIME_X86_64_HASH: 'e70ffa9b69b211574d0917adc482dd66f25a0083427b5945783965d55b0b0a8b'
 
-permissions:  # permissions required for attestation
-  id-token: 'write'
-  attestations: 'write'
+
 
 jobs:
   # build-release-macos: # LF volunteer
@@ -88,17 +64,6 @@ jobs:
           $SETUP_NAME=$contents[0].Name
           echo "SETUP_NAME=$SETUP_NAME" >> $Env:GITHUB_ENV
       # - copy code above to release.yml -
-      - name: Attest Build
-        if: ${{ github.event_name == 'workflow_dispatch' }}
-        uses: actions/attest-build-provenance@v2
-        with:
-          subject-path: |
-            build/exe.*/ArchipelagoLauncher.exe
-            build/exe.*/ArchipelagoLauncherDebug.exe
-            build/exe.*/ArchipelagoGenerate.exe
-            build/exe.*/ArchipelagoServer.exe
-            dist/${{ env.ZIP_NAME }}
-            setups/${{ env.SETUP_NAME }}
       - name: Check build loads expected worlds
         shell: bash
         run: |
@@ -115,6 +80,5 @@ jobs:
         shell: bash
         run: |
           cd build/exe*
-          cp Players/Templates/VVVVVV.yaml Players/
-          cp worlds/keymasters_keep/games/__randophilia_templates__/BigKeep.yaml Players/
+          cp worlds\keymasters_keep\games\__randophilia_templates__\BigKeep.yaml Players/
           timeout 30 ./ArchipelagoGenerate
