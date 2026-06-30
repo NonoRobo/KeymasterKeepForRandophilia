@@ -80,5 +80,5 @@ jobs:
         shell: bash
         run: |
           cd build/exe*
-          cp worlds\keymasters_keep\games\__randophilia_templates__\BigKeep.yaml Players/
+          cp "Players/Templates/Keymaster's Keep.yaml" Players/
           timeout 30 ./ArchipelagoGenerate
