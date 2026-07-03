@@ -3,7 +3,6 @@
 name: Test generate KMK
 
 on:
-  push:
   pull_request:
   workflow_dispatch:
 
