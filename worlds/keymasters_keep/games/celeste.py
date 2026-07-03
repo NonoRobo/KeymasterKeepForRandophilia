@@ -11,7 +11,7 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 @dataclass
-class CelesteArchipelagoOptions:
+class CelesteArchipelagoOptions: # Remove thoses options
     niko_celeste_include_core: CelesteNikoIncludeCore
     niko_celeste_include_farewell: CelesteNikoIncludeFarewell
     niko_celeste_include_c_side: CelesteNikoIncludeCFace
